@@ -2,7 +2,7 @@ if has('cscope')
 	set cscopetag cscopeverbose
 
 	if has('quickfix')
-		"set cscopequickfix=s-,c-,d-,i-,t-,e-
+		" set cscopequickfix=s-,c-,d-,i-,t-,e-
 	endif
 
 "cnoreabbrev csa cs add
@@ -23,7 +23,7 @@ if has('cscope')
 	" Show tabs that are not at the start of a line:
 	" Show spaces used for indenting (so you use only tabs for indenting).
 	highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-	match ExtraWhitespace /[^\t]\zs\t\+\|^\t*\zs \+/
+	match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\t*\zs \+[^\*]/
 
 	command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 endif
