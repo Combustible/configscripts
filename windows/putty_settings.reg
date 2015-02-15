@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\Default%20Settings]
+"ScrollbackLines"=dword:000007d0
+"Font"="Lucida Console"
+"FontQuality"=dword:00000003
+"Colour0"="190,190,190"
+"Colour8"="213,50,50"
+"Colour10"="134,251,134"
+"Colour14"="3,112,231"
+"X11Forward"=dword:00000001
