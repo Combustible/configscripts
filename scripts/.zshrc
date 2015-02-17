@@ -49,8 +49,9 @@ export PATH=~/bin:$PATH
 
 
 alias mv='mv -i'
+alias cp='cp -i'
 alias tree='tree --charset=X'
-alias less='/usr/share/vim/vim74/macros/less.sh'
+alias less='/usr/share/vim/vimcurrent/macros/less.sh'
 alias wine32='WINEARCH=win32 WINEPREFIX=~/.wine32 wine'
 alias winecfg32='WINEARCH=win32 WINEPREFIX=~/.wine32 winecfg'
 alias winetricks32='WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks'
