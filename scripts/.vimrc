@@ -21,9 +21,10 @@ if has('cscope')
 
 	" More info here: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 	" Show tabs that are not at the start of a line:
-	" Show spaces used for indenting (so you use only tabs for indenting).
+	" Show spaces used for indenting from the start of a line, unless the next
+	" immediate character is a *
 	highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-	match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\t*\zs \+[^\*]/
+	autocmd Filetype c match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
 
 	command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
 endif

@@ -18,14 +18,25 @@ make_link() (
 			echo "Warning: $link exists but is a symlink"
 			echo "Replacing it with a link to $target"
 		fi
-		rm -f "$link"
 	fi
 
+	# Remove the link, even if it doesn't exist (in case it is a broken link)
+	rm -f "$link"
 	ln -s "$SCRIPT_DIR/$target" "$link"
 	echo "Link created for $link -> $SCRIPT_DIR/$target"
 )
 
+if [[ "$1 " == "work " ]] || [[ "$1 " == "personal " ]]; then
+	TYPE="$1"
+fi
+
+if [[ $# -ne 1 || "$TYPE " == " " ]]; then
+	echo "Usage: $0 [work|personal]"
+	exit 1
+fi
+
+
 make_link ~/.zshrc "scripts/.zshrc"
 make_link ~/.vimrc "scripts/.vimrc"
 make_link ~/.vim "scripts/.vim"
-make_link ~/.gitconfig "scripts/.gitconfig"
+make_link ~/.gitconfig "scripts/${TYPE}/.gitconfig"
