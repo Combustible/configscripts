@@ -27,4 +27,16 @@ if has('cscope')
 	autocmd Filetype c match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
 
 	command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+
+	function! LoadCscope()
+		let db = findfile("cscope.out", ".;")
+		if (!empty(db))
+			let path = strpart(db, 0, match(db, "/cscope.out$"))
+			set nocscopeverbose " suppress 'duplicate connection' error
+			exe "cs add " . db . " " . path
+			set cscopeverbose
+		endif
+	endfunction
+	au BufEnter /* call LoadCscope()
+
 endif
