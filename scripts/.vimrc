@@ -40,3 +40,7 @@ if has('cscope')
 	au BufEnter /* call LoadCscope()
 
 endif
+
+set mouse=r
+autocmd StdinReadPost * set nomodified
+

@@ -1,3 +1,9 @@
+AnsiEsc	AnsiEsc.txt	/*AnsiEsc*
+AnsiEsc-contents	AnsiEsc.txt	/*AnsiEsc-contents*
+AnsiEsc-copyright	AnsiEsc.txt	/*AnsiEsc-copyright*
+AnsiEsc-history	AnsiEsc.txt	/*AnsiEsc-history*
+AnsiEsc-manual	AnsiEsc.txt	/*AnsiEsc-manual*
+AnsiEsc.txt	AnsiEsc.txt	/*AnsiEsc.txt*
 ConqueTerm	conque_term.txt	/*ConqueTerm*
 ConqueTerm_CWInsert	conque_term.txt	/*ConqueTerm_CWInsert*
 ConqueTerm_CloseOnEnd	conque_term.txt	/*ConqueTerm_CloseOnEnd*
