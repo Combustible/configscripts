@@ -44,3 +44,9 @@ endif
 set mouse=r
 autocmd StdinReadPost * set nomodified
 
+" Fix weird NERDTree characters
+let g:NERDTreeDirArrows=0
+
+" Open nerdtree with ,ne
+let mapleader = ","
+nmap <leader>ne :NERDTree<cr>
