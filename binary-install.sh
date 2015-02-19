@@ -2,20 +2,6 @@
 
 mkdir bin
 
-###################  Build vim
-# http://vim.wikia.com/wiki/Building_Vim
-rm -f vim
-git clone 'https://github.com/b4winckler/vim.git'
-mv vim vim-src
-pushd vim-src
-make distclean
-./configure --with-features=huge --prefix=`pwd`/../vim-compile
-make -j8
-make install
-popd
-
-export PATH=~/configscripts/bin/vim-compile/bin:$PATH
-
 ################### Build git
 # http://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 #
@@ -39,7 +25,7 @@ popd
 export PATH=~/configscripts/bin/git-compile/bin:$PATH
 
 
-################### Python
+################### Python3
 # https://stackoverflow.com/questions/8087184/installing-python3-on-rhel
 wget 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tgz'
 tar xzf Python-3.4.2.tgz
@@ -51,14 +37,53 @@ popd
 
 export PATH=:~/configscripts/bin/python3/bin:$PATH
 
+################### Python2
+# https://stackoverflow.com/questions/8087184/installing-python3-on-rhel
+wget 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
+tar xzf Python-2.7.9.tgz
+pushd Python-2.7.9.tgz
+./configure --prefix=`pwd`/../python2
+make  -j 8
+make install
+popd
 
+export PATH=:~/configscripts/bin/python2/bin:$PATH
+
+
+###################  Build vim
+# http://vim.wikia.com/wiki/Building_Vim
+rm -f vim
+git clone 'https://github.com/b4winckler/vim.git'
+mv vim vim-src
+pushd vim-src
+make distclean
+./configure \
+    --with-features=huge \
+    --enable-pythoninterp \
+    --with-compiledby="Byron Marohn <byron.marohn@intel.com>" \
+    --prefix=`pwd`/../vim-compile
+
+#    --enable-python3interp
+
+make -j8
+make install
+popd
+
+export PATH=~/configscripts/bin/vim-compile/bin:$PATH
 
 ################### pdb-clone for pyclewn
 # https://pypi.python.org/pypi/pdb-clone
-wget 'https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.9.2.py3.tar.gz#md5=74c9968ff10b1b3c93d7da20a375a28c'
-tar xzf pdb-clone-1.9.2.py3.tar.gz
-pushd pdb-clone-1.9.2.py3
-python3 setup.py install
+wget 'https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.9.2.py2.7.tar.gz#md5=248b8cdad99c8e3c57accde28e77b586'
+tar xzf pdb-clone-1.9.2.py2.7.tar.gz
+pushd pdb-clone-1.9.2.py2.7
+python setup.py install
+popd
+
+################### trollius
+wget 'https://pypi.python.org/packages/source/t/trollius/trollius-1.0.4.tar.gz#md5=3631a464d49d0cbfd30ab2918ef2b783'
+tar xzf trollius-1.0.4.tar.gz
+pushd trollius-1.0.4
+python setup.py install
 popd
 
 ################### pyclewn
@@ -67,8 +92,7 @@ popd
 wget 'https://pypi.python.org/packages/source/p/pyclewn/pyclewn-2.0.tar.gz#md5=c55f6a2c018bdf409c3f28d24616b4f9'
 tar xzf pyclewn-2.0.tar.gz
 pushd pyclewn-2.0
-python3 setup.py install
+python setup.py install
 popd
-
 
 

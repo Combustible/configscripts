@@ -1,3 +1,6 @@
+#!/bin/zsh
+CONFIG_SCRIPTS_DIR="$(readlink -f "$(dirname "$(readlink -f "$HOME/.zshrc")")/..")"
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -68,7 +71,11 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
 fi
 
 # User specific aliases and functions
-export PATH=~/configscripts/bin:~/configscripts/bin/git-compile/bin:~/configscripts/bin/python3/bin:$PATH
+export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin:$PATH"
 
 
 alias mv='mv -i'
