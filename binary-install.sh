@@ -1,6 +1,7 @@
 #!/bin/bash
 
-mkdir bin
+mkdir -p bin
+cd bin
 
 ################### Build git
 # http://git-scm.com/book/en/v2/Getting-Started-Installing-Git
@@ -41,7 +42,7 @@ export PATH=:~/configscripts/bin/python3/bin:$PATH
 # https://stackoverflow.com/questions/8087184/installing-python3-on-rhel
 wget 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
 tar xzf Python-2.7.9.tgz
-pushd Python-2.7.9.tgz
+pushd Python-2.7.9
 ./configure --prefix=`pwd`/../python2
 make  -j 8
 make install
@@ -52,7 +53,10 @@ export PATH=:~/configscripts/bin/python2/bin:$PATH
 
 ###################  Build vim
 # http://vim.wikia.com/wiki/Building_Vim
-rm -f vim
+#
+# For Ubuntu:
+# sudo apt-get install libncurses5-dev libatk1.0-dev
+#
 git clone 'https://github.com/b4winckler/vim.git'
 mv vim vim-src
 pushd vim-src
