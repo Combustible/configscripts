@@ -95,4 +95,13 @@ pushd pyclewn-2.0
 python setup.py install
 popd
 
+################### gdb
+wget http://ftp.gnu.org/gnu/gdb/gdb-7.8.2.tar.gz
+tar xzf gdb-7.8.2.tar.gz
+pushd gdb-7.8.2
+./configure --prefix=`pwd`/../gdb-compile
+make -j8
+make install
+popd
 
+export PATH=~/configscripts/bin/gdb-compile/bin:$PATH

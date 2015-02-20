@@ -58,3 +58,7 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
+" Control + S saves current file
+nmap <c-s> :w<CR>
+imap <c-s> <Esc>:w<CR>a
+
