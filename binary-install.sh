@@ -116,14 +116,22 @@ export PATH=$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH
 
 
 
-
+# Vundle
+pushd ~/.vim/bundle
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+popd
 
 # YouCompleteMe requires a more complicated installation process
-
+#
+# On ubuntu:
+# apt-get install cmake python-devel
+# Yes, you need python-devel even though it's locally compiled. I have no idea why.
+#
 pushd ~/.vim/bundle
 git clone https://github.com/Valloric/YouCompleteMe.git
 cd YouCompleteMe
 git submodule update --init --recursive
+export CMAKE_INCLUDE_PATH=$CONFIG_SCRIPTS_DIR/bin/python2/include
 export EXTRA_CMAKE_ARGS="-DPYTHON_INCLUDE_DIR=$CONFIG_SCRIPTS_DIR/bin/python2/include/python2.7/ -DPYTHON_LIBRARY=$CONFIG_SCRIPTS_DIR/bin/python2/lib/libpython2.7.so"
 ./install.sh --clang-completer
 popd

@@ -8,7 +8,6 @@
 	ui = auto
 
 [pager]
-	log = "vim -c AnsiEsc -"
 	diff = "vim -c AnsiEsc -"
 
 [alias]
