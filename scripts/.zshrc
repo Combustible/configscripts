@@ -81,7 +81,7 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin:$PATH"
-
+export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
 
 alias mv='mv -i'
 alias cp='cp -i'

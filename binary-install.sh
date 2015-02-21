@@ -23,7 +23,7 @@ make all doc info -j 8
 make install install-doc install-html install-info
 popd
 
-export PATH=~/configscripts/bin/git-compile/bin:$PATH
+export PATH=$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH
 
 
 ################### Python3
@@ -36,19 +36,20 @@ make  -j 8
 make install
 popd
 
-export PATH=:~/configscripts/bin/python3/bin:$PATH
+export PATH=:$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH
 
 ################### Python2
 # https://stackoverflow.com/questions/8087184/installing-python3-on-rhel
 wget 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
 tar xzf Python-2.7.9.tgz
 pushd Python-2.7.9
-./configure --prefix=`pwd`/../python2
+./configure --prefix=`pwd`/../python2 --enable-shared
 make  -j 8
 make install
 popd
 
-export PATH=:~/configscripts/bin/python2/bin:$PATH
+export PATH=:$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH
+export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
 
 
 ###################  Build vim
@@ -73,7 +74,7 @@ make -j8
 make install
 popd
 
-export PATH=~/configscripts/bin/vim-compile/bin:$PATH
+export PATH=$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH
 
 ################### pdb-clone for pyclewn
 # https://pypi.python.org/pypi/pdb-clone
@@ -108,4 +109,22 @@ make -j8
 make install
 popd
 
-export PATH=~/configscripts/bin/gdb-compile/bin:$PATH
+export PATH=$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH
+
+
+
+
+
+
+
+
+# YouCompleteMe requires a more complicated installation process
+
+pushd ~/.vim/bundle
+git clone https://github.com/Valloric/YouCompleteMe.git
+cd YouCompleteMe
+git submodule update --init --recursive
+export EXTRA_CMAKE_ARGS="-DPYTHON_INCLUDE_DIR=$CONFIG_SCRIPTS_DIR/bin/python2/include/python2.7/ -DPYTHON_LIBRARY=$CONFIG_SCRIPTS_DIR/bin/python2/lib/libpython2.7.so"
+./install.sh --clang-completer
+popd
+
