@@ -63,12 +63,6 @@ if has('cscope')
 "cnoreabbrev css cs show
 "cnoreabbrev csh cs help
 
-	" Fix whitespace on saving
-	autocmd BufWritePre * :%s/\s\+$//e
-
-	set tabstop=4
-	set shiftwidth=4
-	set list listchars=tab:\>\ ,trail:-
 
 	" More info here: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 	" Show tabs that are not at the start of a line:
@@ -91,6 +85,34 @@ if has('cscope')
 	au BufEnter /* call LoadCscope()
 
 endif
+
+
+function! Astylelinux()
+	exe "write"
+	set autoread
+	exe "!astyle --style=linux --indent=tab=8 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --add-one-line-brackets --max-code-length=100 %"
+	set noautoread
+endfunction
+function! Astyleallman()
+	exe "write"
+	set autoread
+	exe "!astyle --style=allman --indent=tab=4 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --add-one-line-brackets --max-code-length=100 %"
+	set noautoread
+endfunction
+
+function! TabsOn()
+	set list listchars=tab:\>\ ,trail:-
+endfunction
+function! TabsOff()
+	set nolist
+endfunction
+
+
+" Fix whitespace on saving
+autocmd BufWritePre * :%s/\s\+$//e
+
+set tabstop=4
+set shiftwidth=4
 
 " allow backspacing over everything in insert mode
 set bs=indent,eol,start
@@ -122,4 +144,5 @@ endif
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
 
-
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
