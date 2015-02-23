@@ -100,6 +100,14 @@ pushd pyclewn-2.0
 python setup.py install
 popd
 
+# Pyserial
+wget 'https://pypi.python.org/packages/source/p/pyserial/pyserial-2.7.tar.gz#md5=794506184df83ef2290de0d18803dd11'
+tar xzf pyserial-2.7.tar.gz
+pushd pyserial-2.7
+python setup.py install
+popd
+
+
 ################### gdb
 wget http://ftp.gnu.org/gnu/gdb/gdb-7.8.2.tar.gz
 tar xzf gdb-7.8.2.tar.gz
