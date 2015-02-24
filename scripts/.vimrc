@@ -63,25 +63,21 @@ if has('cscope')
 "cnoreabbrev css cs show
 "cnoreabbrev csh cs help
 
-
-	" More info here: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
-	" Show tabs that are not at the start of a line:
-	" Show spaces used for indenting from the start of a line, unless the next
-	" immediate character is a *
-	highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-	autocmd Filetype c match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
-
-	command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-
 	function! LoadCscope()
-		let db = findfile("cscope.out", ".;")
-		if (!empty(db))
-			let path = strpart(db, 0, match(db, "/cscope.out$"))
-			set nocscopeverbose " suppress 'duplicate connection' error
-			exe "cs add " . db . " " . path
-			set cscopeverbose
-	endif
+		let dbcount=1
+		let l:db = "junk"
+		while (!empty(l:db))
+			let l:db = findfile("cscope.out", ".;", dbcount)
+			if (!empty(l:db))
+				let path = strpart(l:db, 0, match(l:db, "/cscope.out$"))
+				set nocscopeverbose " suppress 'duplicate connection' error
+				exe "cs add " . l:db . " " . path
+				set cscopeverbose
+				let dbcount = dbcount + 1
+			endif
+		endwhile
 	endfunction
+
 	au BufEnter /* call LoadCscope()
 
 endif
@@ -107,12 +103,22 @@ function! TabsOff()
 	set nolist
 endfunction
 
+" More info here: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+" Show tabs that are not at the start of a line:
+" Show spaces used for indenting from the start of a line, unless the next
+" immediate character is a *
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+autocmd Filetype c match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
 
 " Fix whitespace on saving
 autocmd BufWritePre * :%s/\s\+$//e
 
+
 set tabstop=4
 set shiftwidth=4
+
+" Text files don't use tabs
+autocmd FileType text setlocal expandtab
 
 " allow backspacing over everything in insert mode
 set bs=indent,eol,start
