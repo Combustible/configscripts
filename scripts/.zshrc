@@ -1,5 +1,5 @@
 #!/bin/zsh
-CONFIG_SCRIPTS_DIR="$(readlink -f "$(dirname "$(readlink -f "$HOME/.zshrc")")/..")"
+export CONFIG_SCRIPTS_DIR="$(readlink -f "$(dirname "$(readlink -f "$HOME/.zshrc")")/..")"
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -82,7 +82,11 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
-export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
+if [[ "$LD_LIBRARY_PATH " == " " ]]; then
+	export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib"
+else
+	export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
+fi
 
 alias mv='mv -i'
 alias cp='cp -i'
