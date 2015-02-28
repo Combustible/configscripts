@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 #################################
 ####### Utility Functions
@@ -19,11 +19,11 @@ else
 fi
 
 RUN() {
-	echo "${GOODCOLOR}Running: ${@}${ENDGOODCOLOR}"
+	echo -e "${GOODCOLOR}Running: ${@}${ENDGOODCOLOR}"
 	"$@"
 	RETVAL=$?
 	if [[ $RETVAL -ne 0 ]]; then
-		echo "${BADCOLOR}ERROR: execution of command $@ returned ${RETVAL}${ENDBADCOLOR}" >&2
+		echo -e "${BADCOLOR}ERROR: execution of command $@ returned ${RETVAL}${ENDBADCOLOR}" >&2
 		exit $RETVAL
 	fi
 }
@@ -31,9 +31,9 @@ RUN() {
 PRINTSTART() (
 	PACKAGE="$1"
 
-	echo "${GOODCOLOR}###############################################################################${ENDGOODCOLOR}"
-	echo "${GOODCOLOR}############################# Installing ${PACKAGE}${ENDGOODCOLOR}"
-	echo
+	echo -e "${GOODCOLOR}###############################################################################${ENDGOODCOLOR}"
+	echo -e "${GOODCOLOR}############################# Installing ${PACKAGE}${ENDGOODCOLOR}"
+	echo -e
 )
 
 # REINSTALL="TRUE"
@@ -276,7 +276,7 @@ if [[ ! -d "$HOME/.vim/bundle/YouCompleteMe" ]] || [[ "$REINSTALL " == "TRUE " ]
 	RUN popd
 fi
 
-echo "${GOODCOLOR}Install complete!${ENDGOODCOLOR}"
+echo -e "${GOODCOLOR}Install complete!${ENDGOODCOLOR}"
 
 
 

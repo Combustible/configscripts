@@ -40,3 +40,33 @@ make_link ~/.zshrc "scripts/.zshrc"
 make_link ~/.vimrc "scripts/.vimrc"
 make_link ~/.vim "scripts/.vim"
 make_link ~/.gitconfig "scripts/${TYPE}/.gitconfig"
+
+if ! getent passwd | grep "^$USER" | grep -q zsh ; then
+	echo "Warning! Login shell is not ZSH. You must manually add this text to your ~/.bashrc (or similar)"
+	cat <<EOF
+
+export CONFIG_SCRIPTS_DIR="$(readlink -f "$(dirname "$(readlink -f "$HOME/.zshrc")")/..")"
+
+export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+if [[ "$LD_LIBRARY_PATH " == " " ]]; then
+    export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib"
+else
+    export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
+fi
+
+# No more awful control-s freeze
+stty ixany
+stty ixoff -ixon
+
+EOF
+fi
+
+echo "Make sure you also replace my name with yours in your ~/.gitconfig file!"
+
+
