@@ -1,0 +1,6 @@
+python
+import os
+if os.environ.get('CONFIG_SCRIPTS_DIR'):
+	sys.path.insert(0, os.environ.get('CONFIG_SCRIPTS_DIR') + "/scripts")
+	import gdbhexdump
+end

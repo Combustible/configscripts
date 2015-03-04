@@ -31,6 +31,7 @@ make_link "$HOME/.commonrc" "scripts/commonrc"
 make_link "$HOME/.zshrc" "scripts/zshrc"
 make_link "$HOME/.vimrc" "scripts/vimrc"
 make_link "$HOME/.vim" "scripts/vim"
+make_link "$HOME/.gdbinit" "scripts/gdbinit"
 
 
 # Check gitconfig
