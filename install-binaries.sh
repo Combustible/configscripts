@@ -222,12 +222,15 @@ fi
 #
 if [[ ! -d gdb-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "GDB"
+
+	export LDFLAGS="-Wl,-rpath,$CONFIG_SCRIPTS_DIR/bin/python2/lib -L$CONFIG_SCRIPTS_DIR/bin/python2/lib"
+
 	RUN rm -f gdb-7.8.2.tar.gz
 	RUN rm -rf gdb-7.8.2
 	RUN wget 'http://ftp.gnu.org/gnu/gdb/gdb-7.8.2.tar.gz'
 	RUN tar xzf gdb-7.8.2.tar.gz
 	RUN pushd gdb-7.8.2
-	RUN ./configure --prefix=`pwd`/../gdb-compile
+	RUN ./configure --with-python --prefix=`pwd`/../gdb-compile
 	RUN make "-j$NUMTHREADS"
 	RUN make install
 	RUN popd

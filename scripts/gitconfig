@@ -1,9 +1,6 @@
-
-[user]
-	name = Byron Marohn
-	email = byron.marohn@intel.com
 [core]
 	editor = vim
+
 [color]
 	ui = auto
 
