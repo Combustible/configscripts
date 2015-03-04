@@ -103,6 +103,17 @@ function! TabsOff()
 	set nolist
 endfunction
 
+" Allow using mouse in VIM. From here:
+"   https://superuser.com/questions/549930/cant-resize-vim-splits-inside-tmux
+function! MouseOn()
+	set mouse+=a
+	set ttymouse=xterm2
+endfunction
+function! MouseOff()
+	set mouse-=a
+	set ttymouse=
+endfunction
+
 " More info here: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 " Show tabs that are not at the start of a line:
 " Show spaces used for indenting from the start of a line, unless the next
@@ -152,3 +163,4 @@ imap <c-s> <Esc>:w<CR>a
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+
