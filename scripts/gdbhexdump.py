@@ -1,3 +1,5 @@
+# This code from https://stackoverflow.com/questions/9233095/memory-dump-formatted-like-xxd-from-gdb
+
 import gdb
 from curses.ascii import isgraph
 
