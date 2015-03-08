@@ -58,7 +58,7 @@ cd "$CONFIG_SCRIPTS_DIR/bin"
 # http://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 #
 # yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc xmlto docbook2x
-# apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x
+# apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x autoconf
 #
 # Old centos might require:
 #    yum install docbook2X-texi
