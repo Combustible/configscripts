@@ -36,8 +36,23 @@ PRINTSTART() (
 	echo -e
 )
 
-# REINSTALL="TRUE"
 NUMTHREADS=8
+
+while (( "$#" )); do
+	if [[ "$1" == "--reinstall" ]]; then
+		REINSTALL="TRUE"
+		echo -e "${GOODCOLOR}Performing a reinstallation of everything in the bin folder${ENDGOODCOLOR}"
+	elif [[ "$1" =~ ^-j[0-9][0-9]*$ ]]; then
+		NUMTHREADS="$(echo "$1" | sed -e 's|^-j||g')"
+		echo -e "${GOODCOLOR}Changing number of compile threads to $NUMTHREADS${ENDGOODCOLOR}"
+	else
+		echo -e "${BADCOLOR}Command line argument '$1' not understood. Valid arguments are -j<number of threads> and --reinstall${ENDBADCOLOR}"
+		exit 1
+	fi
+
+	shift
+done
+
 
 #################################
 ####### Initial Setup
@@ -75,10 +90,12 @@ if [[ ! -d git-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN tar xzf git-2.3.0.tar.gz
 	RUN pushd git-2.3.0
 	RUN make configure
-	RUN ./configure --prefix=`pwd`/../git-compile
+	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/git-compile"
 	RUN make all doc info "-j$NUMTHREADS"
 	RUN make install install-doc install-html install-info
 	RUN popd
+	RUN rm -f git-2.3.0.tar.gz
+	RUN rm -rf git-2.3.0
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
@@ -96,10 +113,12 @@ if [[ ! -d python3 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN wget 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tgz'
 	RUN tar xzf Python-3.4.2.tgz
 	RUN pushd Python-3.4.2
-	RUN ./configure --prefix=`pwd`/../python3
+	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/python3"
 	RUN make "-j$NUMTHREADS"
 	RUN make install
 	RUN popd
+	RUN rm -f Python-3.4.2.tgz
+	RUN rm -rf Python-3.4.2
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
@@ -117,15 +136,36 @@ if [[ ! -d python2 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN wget 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
 	RUN tar xzf Python-2.7.9.tgz
 	RUN pushd Python-2.7.9
-	RUN ./configure --prefix=`pwd`/../python2 --enable-shared
+	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/python2" --enable-shared
 	RUN make "-j$NUMTHREADS"
 	RUN make install
 	RUN popd
+	RUN rm -f Python-2.7.9.tgz
+	RUN rm -rf Python-2.7.9
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH"
 export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
 
+###############################################################################
+############################# Cscope
+if [[ ! -d cscope-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+	PRINTSTART "Cscope"
+	RUN rm -f cscope-15.8a.tar.gz
+	RUN rm -rf cscope-15.8a
+	RUN rm -rf cscope-compile
+	RUN wget 'http://downloads.sourceforge.net/project/cscope/cscope/15.8a/cscope-15.8a.tar.gz'
+	RUN tar xzf cscope-15.8a.tar.gz
+	RUN pushd cscope-15.8a
+	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/cscope-compile"
+	RUN make "-j$NUMTHREADS"
+	RUN make install
+	RUN popd
+	RUN rm -f cscope-15.8a.tar.gz
+	RUN rm -rf cscope-15.8a
+fi
+
+export PATH="$CONFIG_SCRIPTS_DIR/bin/cscope-compile/bin:$PATH"
 
 ###############################################################################
 ############################# Vim
@@ -146,13 +186,14 @@ if [[ ! -d vim-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 		--with-features=huge \
 		--enable-pythoninterp \
 		--with-compiledby='Byron Marohn <byron.marohn@intel.com>' \
-		--prefix=`pwd`/../vim-compile
+		--prefix="$CONFIG_SCRIPTS_DIR/bin/vim-compile"
 
 	#    --enable-python3interp
 
 	RUN make "-j$NUMTHREADS"
 	RUN make install
 	RUN popd
+	RUN rm -rf vim-src
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
@@ -171,6 +212,8 @@ if [[ ! -d pdb-clone-1.9.2.py2.7 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN pushd pdb-clone-1.9.2.py2.7
 	RUN python setup.py install
 	RUN popd
+	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
+	RUN rm -rf pdb-clone-1.9.2.py2.7
 fi
 
 ###############################################################################
@@ -184,6 +227,8 @@ if [[ ! -d trollius-1.0.4 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN pushd trollius-1.0.4
 	RUN python setup.py install
 	RUN popd
+	RUN rm -f trollius-1.0.4.tar.gz
+	RUN rm -rf trollius-1.0.4
 fi
 
 ###############################################################################
@@ -201,6 +246,8 @@ if [[ ! -d pyclewn-2.0 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN pushd pyclewn-2.0
 	RUN python setup.py install
 	RUN popd
+	RUN rm -f pyclewn-2.0.tar.gz
+	RUN rm -rf pyclewn-2.0
 fi
 
 ###############################################################################
@@ -215,6 +262,8 @@ if [[ ! -d pyserial-2.7 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN pushd pyserial-2.7
 	RUN python setup.py install
 	RUN popd
+	RUN rm -f pyserial-2.7.tar.gz
+	RUN rm -rf pyserial-2.7
 fi
 
 ###############################################################################
@@ -227,13 +276,16 @@ if [[ ! -d gdb-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 
 	RUN rm -f gdb-7.8.2.tar.gz
 	RUN rm -rf gdb-7.8.2
+	RUN rm -rf gdb-compile
 	RUN wget 'http://ftp.gnu.org/gnu/gdb/gdb-7.8.2.tar.gz'
 	RUN tar xzf gdb-7.8.2.tar.gz
 	RUN pushd gdb-7.8.2
-	RUN ./configure --with-python --prefix=`pwd`/../gdb-compile
+	RUN ./configure --with-python --prefix="$CONFIG_SCRIPTS_DIR/bin/gdb-compile"
 	RUN make "-j$NUMTHREADS"
 	RUN make install
 	RUN popd
+	RUN rm -f gdb-7.8.2.tar.gz
+	RUN rm -rf gdb-7.8.2
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
