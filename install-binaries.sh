@@ -72,12 +72,12 @@ cd "$CONFIG_SCRIPTS_DIR/bin"
 #
 # http://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 #
-# yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc xmlto docbook2x
-# apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x autoconf
+# CentOS/Fedora:
+#   yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc xmlto docbook2X autoconf gcc
+#   ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
 #
-# Old centos might require:
-#    yum install docbook2X-texi
-#    ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
+# Debian/Ubuntu:
+#   apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x autoconf
 #
 # Get source URL from here: https://www.kernel.org/pub/software/scm/git/
 #
@@ -91,7 +91,9 @@ if [[ ! -d git-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN pushd git-2.3.0
 	RUN make configure
 	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/git-compile"
-	RUN make all doc info "-j$NUMTHREADS"
+	RUN make all "-j$NUMTHREADS"
+	RUN make doc "-j$NUMTHREADS"
+	RUN make info "-j$NUMTHREADS"
 	RUN make install install-doc install-html install-info
 	RUN popd
 	RUN rm -f git-2.3.0.tar.gz
@@ -213,7 +215,6 @@ if [[ ! -d pdb-clone-1.9.2.py2.7 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN python setup.py install
 	RUN popd
 	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
-	RUN rm -rf pdb-clone-1.9.2.py2.7
 fi
 
 ###############################################################################
@@ -228,7 +229,6 @@ if [[ ! -d trollius-1.0.4 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN python setup.py install
 	RUN popd
 	RUN rm -f trollius-1.0.4.tar.gz
-	RUN rm -rf trollius-1.0.4
 fi
 
 ###############################################################################
@@ -247,7 +247,6 @@ if [[ ! -d pyclewn-2.0 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN python setup.py install
 	RUN popd
 	RUN rm -f pyclewn-2.0.tar.gz
-	RUN rm -rf pyclewn-2.0
 fi
 
 ###############################################################################
@@ -263,7 +262,6 @@ if [[ ! -d pyserial-2.7 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN python setup.py install
 	RUN popd
 	RUN rm -f pyserial-2.7.tar.gz
-	RUN rm -rf pyserial-2.7
 fi
 
 ###############################################################################
