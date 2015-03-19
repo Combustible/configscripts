@@ -76,6 +76,9 @@ cd "$CONFIG_SCRIPTS_DIR/bin"
 #   yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc xmlto docbook2X autoconf gcc
 #   ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
 #
+# On CentOS, if all packages are not available, EPEL might have to be installed before trying again
+#   yum install epel-release
+#
 # Debian/Ubuntu:
 #   apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x autoconf
 #
@@ -301,18 +304,17 @@ fi
 
 ###############################################################################
 ############################# Vim YouCompleteMe
-# YouCompleteMe requires a more complicated installation process
 #
 # On ubuntu:
 #   apt-get install cmake
 #
 # On CentOS6:
-#   yum install clang
+#   yum install clang cmake
 #   pushd /usr/lib64
 #   ln -s libedit.so.0 libedit.so.2
 #   popd
 #
-if [[ ! -d "$HOME/.vim/bundle/YouCompleteMe" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+if [[ ! -e "$HOME/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Vim YouCompleteMe"
 	RUN pushd "$HOME/.vim/bundle"
 	RUN	rm -rf YouCompleteMe
