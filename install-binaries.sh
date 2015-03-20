@@ -73,7 +73,7 @@ cd "$CONFIG_SCRIPTS_DIR/bin"
 # http://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 #
 # CentOS/Fedora:
-#   yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc xmlto docbook2X autoconf gcc
+#   yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc xmlto docbook2X autoconf gcc perl-devel
 #   ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
 #
 # On CentOS, if all packages are not available, EPEL might have to be installed before trying again
@@ -309,7 +309,7 @@ fi
 #   apt-get install cmake
 #
 # On CentOS6:
-#   yum install clang cmake
+#   yum install clang cmake libstdc++-static
 #   pushd /usr/lib64
 #   ln -s libedit.so.0 libedit.so.2
 #   popd
