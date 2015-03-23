@@ -37,16 +37,20 @@ PRINTSTART() (
 )
 
 NUMTHREADS=8
+USESYSTEMPYTHON=0
 
 while (( "$#" )); do
 	if [[ "$1" == "--reinstall" ]]; then
 		REINSTALL="TRUE"
 		echo -e "${GOODCOLOR}Performing a reinstallation of everything in the bin folder${ENDGOODCOLOR}"
+	elif [[ "$1" == "--use-system-python" ]]; then
+		USESYSTEMPYTHON=1
+		echo -e "${GOODCOLOR}Using system-installed python2${ENDGOODCOLOR}"
 	elif [[ "$1" =~ ^-j[0-9][0-9]*$ ]]; then
 		NUMTHREADS="$(echo "$1" | sed -e 's|^-j||g')"
 		echo -e "${GOODCOLOR}Changing number of compile threads to $NUMTHREADS${ENDGOODCOLOR}"
 	else
-		echo -e "${BADCOLOR}Command line argument '$1' not understood. Valid arguments are -j<number of threads> and --reinstall${ENDBADCOLOR}"
+		echo -e "${BADCOLOR}Command line argument '$1' not understood. Valid arguments are -j<number of threads>, --reinstall, and --use-system-python${ENDBADCOLOR}"
 		exit 1
 	fi
 
@@ -106,51 +110,36 @@ fi
 export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
 
 ###############################################################################
-############################# Python3
-#
-# https://stackoverflow.com/questions/8087184/installing-python3-on-rhel
-#
-if [[ ! -d python3 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
-	PRINTSTART "Python3"
-	RUN rm -f Python-3.4.2.tgz
-	RUN rm -rf Python-3.4.2
-	RUN rm -rf python3
-	RUN wget 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tgz'
-	RUN tar xzf Python-3.4.2.tgz
-	RUN pushd Python-3.4.2
-	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/python3"
-	RUN make "-j$NUMTHREADS"
-	RUN make install
-	RUN popd
-	RUN rm -f Python-3.4.2.tgz
-	RUN rm -rf Python-3.4.2
-fi
-
-export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
-
-###############################################################################
 ############################# Python2
+# Note: python-devel is only required if using system python
 #
-# https://stackoverflow.com/questions/8087184/installing-python3-on-rhel
+# CentOS/Fedora:
+#   yum install python-devel
 #
-if [[ ! -d python2 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
-	PRINTSTART "Python2"
-	RUN rm -f Python-2.7.9.tgz
-	RUN rm -rf Python-2.7.9
-	RUN rm -rf python2
-	RUN wget 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
-	RUN tar xzf Python-2.7.9.tgz
-	RUN pushd Python-2.7.9
-	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/python2" --enable-shared
-	RUN make "-j$NUMTHREADS"
-	RUN make install
-	RUN popd
-	RUN rm -f Python-2.7.9.tgz
-	RUN rm -rf Python-2.7.9
-fi
+# Ubuntu:
+#   apt-get install python-devel
+#
+#
+if [[ $USESYSTEMPYTHON -eq 0 ]]; then
+	if [[ ! -d python2 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+		PRINTSTART "Python2"
+		RUN rm -f Python-2.7.9.tgz
+		RUN rm -rf Python-2.7.9
+		RUN rm -rf python2
+		RUN wget 'https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz'
+		RUN tar xzf Python-2.7.9.tgz
+		RUN pushd Python-2.7.9
+		RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/python2" --enable-shared
+		RUN make "-j$NUMTHREADS"
+		RUN make install
+		RUN popd
+		RUN rm -f Python-2.7.9.tgz
+		RUN rm -rf Python-2.7.9
+	fi
 
-export PATH="$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH"
-export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
+	export PATH="$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH"
+	export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
+fi
 
 ###############################################################################
 ############################# Cscope
@@ -208,7 +197,7 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 #
 # https://pypi.python.org/pypi/pdb-clone
 #
-if [[ ! -d pdb-clone-1.9.2.py2.7 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+if ! python -c 'import pdb' 2>/dev/null ; then
 	PRINTSTART "Python2 pdb-clone"
 	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
 	RUN rm -rf pdb-clone-1.9.2.py2.7
@@ -222,7 +211,7 @@ fi
 
 ###############################################################################
 ############################# Python2 trollius
-if [[ ! -d trollius-1.0.4 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+if ! python -c 'import trollius' 2>/dev/null ; then
 	PRINTSTART "Python2 trollius"
 	RUN rm -f trollius-1.0.4.tar.gz
 	RUN rm -rf trollius-1.0.4
@@ -240,7 +229,7 @@ fi
 # http://pyclewn.sourceforge.net/install.html
 # https://pypi.python.org/pypi/pyclewn
 #
-if [[ ! -d pyclewn-2.0 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+if ! python -c 'import clewn' 2>/dev/null ; then
 	PRINTSTART "Python2 pyclewn"
 	RUN rm -f pyclewn-2.0.tar.gz
 	RUN rm -rf pyclewn-2.0
@@ -255,7 +244,7 @@ fi
 ###############################################################################
 ############################# Python2 pyserial
 #
-if [[ ! -d pyserial-2.7 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+if ! python -c 'import serial' 2>/dev/null ; then
 	PRINTSTART "Python2 pyserial"
 	RUN rm -f pyserial-2.7.tar.gz
 	RUN rm -rf pyserial-2.7
@@ -321,8 +310,12 @@ if [[ ! -e "$HOME/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so" ]] || 
 	RUN git clone 'https://github.com/Valloric/YouCompleteMe.git'
 	RUN cd YouCompleteMe
 	RUN git submodule update --init --recursive
-	export CMAKE_INCLUDE_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/include"
-	export EXTRA_CMAKE_ARGS="-DPYTHON_INCLUDE_DIR=$CONFIG_SCRIPTS_DIR/bin/python2/include/python2.7/ -DPYTHON_LIBRARY=$CONFIG_SCRIPTS_DIR/bin/python2/lib/libpython2.7.so -DPYTHON_EXECUTABLE=$CONFIG_SCRIPTS_DIR/bin/python2/bin/python"
+
+	if [[ $USESYSTEMPYTHON -eq 0 ]]; then
+		export CMAKE_INCLUDE_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/include"
+		export EXTRA_CMAKE_ARGS="-DPYTHON_INCLUDE_DIR=$CONFIG_SCRIPTS_DIR/bin/python2/include/python2.7/ -DPYTHON_LIBRARY=$CONFIG_SCRIPTS_DIR/bin/python2/lib/libpython2.7.so -DPYTHON_EXECUTABLE=$CONFIG_SCRIPTS_DIR/bin/python2/bin/python"
+	fi
+
 	if [[ "$(ldd --version | grep 'ldd' | sed -e 's|^[^0-9]*||g')" == "2.12" ]]; then
 		RUN ./install.sh --clang-completer --system-libclang
 	else
@@ -366,6 +359,29 @@ echo -e "${GOODCOLOR}Install complete!${ENDGOODCOLOR}"
 #	RUN make install
 #fi
 
+
+###############################################################################
+############################# Python3
+#
+# https://stackoverflow.com/questions/8087184/installing-python3-on-rhel
+#
+#if [[ ! -d python3 ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+#	PRINTSTART "Python3"
+#	RUN rm -f Python-3.4.2.tgz
+#	RUN rm -rf Python-3.4.2
+#	RUN rm -rf python3
+#	RUN wget 'https://www.python.org/ftp/python/3.4.2/Python-3.4.2.tgz'
+#	RUN tar xzf Python-3.4.2.tgz
+#	RUN pushd Python-3.4.2
+#	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/python3"
+#	RUN make "-j$NUMTHREADS"
+#	RUN make install
+#	RUN popd
+#	RUN rm -f Python-3.4.2.tgz
+#	RUN rm -rf Python-3.4.2
+#fi
+#
+#export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
 
 
 

@@ -1,19 +1,22 @@
-
-
 export CONFIG_SCRIPTS_DIR="$(readlink -f "$(dirname "$(readlink -f "$HOME/.zshrc")")/..")"
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
-export PATH="$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH"
-export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/cscope-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
-if [[ "$LD_LIBRARY_PATH " == " " ]]; then
-    export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib"
-else
-    export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
+
+if [[ -d "$CONFIG_SCRIPTS_DIR/bin/python3" ]]; then
+	export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
+fi
+if [[ -d "$CONFIG_SCRIPTS_DIR/bin/python2" ]]; then
+	export PATH="$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH"
+	if [[ "$LD_LIBRARY_PATH " == " " ]]; then
+		export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib"
+	else
+		export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
+	fi
 fi
 
 # No more awful control-s freeze
