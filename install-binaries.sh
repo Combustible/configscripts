@@ -207,6 +207,7 @@ if ! python -c 'import pdb' 2>/dev/null ; then
 	RUN python setup.py install
 	RUN popd
 	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
+	RUN rm -rf pdb-clone-1.9.2.py2.7
 fi
 
 ###############################################################################
@@ -221,6 +222,7 @@ if ! python -c 'import trollius' 2>/dev/null ; then
 	RUN python setup.py install
 	RUN popd
 	RUN rm -f trollius-1.0.4.tar.gz
+	RUN rm -rf trollius-1.0.4
 fi
 
 ###############################################################################
@@ -239,6 +241,7 @@ if ! python -c 'import clewn' 2>/dev/null ; then
 	RUN python setup.py install
 	RUN popd
 	RUN rm -f pyclewn-2.0.tar.gz
+	RUN rm -rf pyclewn-2.0
 fi
 
 ###############################################################################
@@ -254,6 +257,7 @@ if ! python -c 'import serial' 2>/dev/null ; then
 	RUN python setup.py install
 	RUN popd
 	RUN rm -f pyserial-2.7.tar.gz
+	RUN rm -rf pyserial-2.7
 fi
 
 ###############################################################################
