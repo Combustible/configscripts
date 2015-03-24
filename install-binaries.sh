@@ -143,6 +143,10 @@ fi
 
 ###############################################################################
 ############################# Cscope
+#
+# CentOS/Fedora:
+#   yum install ncurses-devel
+#
 if [[ ! -d cscope-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Cscope"
 	RUN rm -f cscope-15.8a.tar.gz
