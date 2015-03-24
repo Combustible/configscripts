@@ -57,6 +57,24 @@ while (( "$#" )); do
 	shift
 done
 
+# Check if using the system python will probably work
+if [[ $USESYSTEMPYTHON -eq 0 ]]; then
+	if which python &> /dev/null ; then
+		if python -c 'import sys; sys.exit(not ((sys.version_info >= (2,6)) and (sys.version_info < (3,0))))' ; then
+			echo -e "${GOODCOLOR}Looks like the current version of Python 2 is greater than 2.6 and will probably work.${ENDGOODCOLOR}"
+			echo -e "${GOODCOLOR}Should system python be used? This is a good idea, but requires root access.${ENDGOODCOLOR}"
+			echo -en "${GOODCOLOR}[Y/n]> ${ENDGOODCOLOR}"
+			read line
+			if [[ "$line" == "" ]] || [[ "$line" == "y" ]] || [[ "$line" == "Y" ]] || [[ "$line" == "yes" ]] || [[ "$line" == "YES" ]]; then
+				echo -e "${GOODCOLOR}Using system python installation. Will attempt to use sudo as needed to install modules.${ENDGOODCOLOR}"
+				USESYSTEMPYTHON=1
+			else
+				echo -e "${GOODCOLOR}Not using system python. Will compile python from source for this user ($USER)${ENDGOODCOLOR}"
+			fi
+			sleep 2
+		fi
+	fi
+fi
 
 #################################
 ####### Initial Setup
@@ -139,6 +157,9 @@ if [[ $USESYSTEMPYTHON -eq 0 ]]; then
 
 	export PATH="$CONFIG_SCRIPTS_DIR/bin/python2/bin:$PATH"
 	export LD_LIBRARY_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/lib:$LD_LIBRARY_PATH"
+elif [[ -d python2 ]]; then
+	# If we were not using system python before, remove the previously built python2 binaries
+	RUN rm -rf python2
 fi
 
 ###############################################################################
@@ -208,7 +229,7 @@ if ! python -c 'import pdb' 2>/dev/null ; then
 	RUN wget 'https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.9.2.py2.7.tar.gz#md5=248b8cdad99c8e3c57accde28e77b586'
 	RUN tar xzf pdb-clone-1.9.2.py2.7.tar.gz
 	RUN pushd pdb-clone-1.9.2.py2.7
-	RUN python setup.py install
+	RUN sudo python setup.py install
 	RUN popd
 	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
 	RUN rm -rf pdb-clone-1.9.2.py2.7
@@ -223,7 +244,7 @@ if ! python -c 'import trollius' 2>/dev/null ; then
 	RUN wget 'https://pypi.python.org/packages/source/t/trollius/trollius-1.0.4.tar.gz#md5=3631a464d49d0cbfd30ab2918ef2b783'
 	RUN tar xzf trollius-1.0.4.tar.gz
 	RUN pushd trollius-1.0.4
-	RUN python setup.py install
+	RUN sudo python setup.py install
 	RUN popd
 	RUN rm -f trollius-1.0.4.tar.gz
 	RUN rm -rf trollius-1.0.4
@@ -242,7 +263,7 @@ if ! python -c 'import clewn' 2>/dev/null ; then
 	RUN wget 'https://pypi.python.org/packages/source/p/pyclewn/pyclewn-2.0.tar.gz#md5=c55f6a2c018bdf409c3f28d24616b4f9'
 	RUN tar xzf pyclewn-2.0.tar.gz
 	RUN pushd pyclewn-2.0
-	RUN python setup.py install
+	RUN sudo python setup.py install
 	RUN popd
 	RUN rm -f pyclewn-2.0.tar.gz
 	RUN rm -rf pyclewn-2.0
@@ -258,7 +279,7 @@ if ! python -c 'import serial' 2>/dev/null ; then
 	RUN wget 'https://pypi.python.org/packages/source/p/pyserial/pyserial-2.7.tar.gz#md5=794506184df83ef2290de0d18803dd11'
 	RUN tar xzf pyserial-2.7.tar.gz
 	RUN pushd pyserial-2.7
-	RUN python setup.py install
+	RUN sudo python setup.py install
 	RUN popd
 	RUN rm -f pyserial-2.7.tar.gz
 	RUN rm -rf pyserial-2.7
