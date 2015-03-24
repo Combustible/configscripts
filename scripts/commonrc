@@ -23,3 +23,5 @@ fi
 stty ixany
 stty ixoff -ixon
 
+# No more vi for you
+alias vi=vim
