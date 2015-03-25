@@ -85,6 +85,13 @@ alias astyleallman='astyle --style=allman --indent=tab=4 --convert-tabs --indent
 alias scite='SciTE'
 unset SSH_ASKPASS
 
+buildcscope() (
+	rm -f cscope.in.out cscope.po.out cscope.files cscope.out
+	find "$@" -name "*.c" -o -name "*.h" -o -name "*.cpp" | while read line; do
+		echo $(readlink -f $line)
+	done > cscope.files && cscope -b -q -k
+)
+
 fixwhitespace() {
     sed -i -e's|[ \t]*\([\r\n]*\)$|\1|g' "$1"
 }
