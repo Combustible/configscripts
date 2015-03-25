@@ -353,6 +353,30 @@ if [[ ! -e "$HOME/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so" ]] || 
 	RUN popd
 fi
 
+
+###############################################################################
+############################# Artistic Style (astyle)
+#
+# CentOS/Fedora:
+#    yum install gcc-c++
+#
+if [[ ! -e "astyle" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+	PRINTSTART "Artistic Style (astyle)"
+	RUN rm -f astyle_2.05.1_linux.tar.gz
+	RUN rm -f astyle
+	RUN rm -rf astyle_src
+	RUN wget 'http://downloads.sourceforge.net/project/astyle/astyle/astyle%202.05.1/astyle_2.05.1_linux.tar.gz'
+	RUN mkdir astyle_src
+	RUN pushd astyle_src
+	RUN tar xzf ../astyle_2.05.1_linux.tar.gz
+	RUN cd astyle/build/gcc
+	RUN make
+	RUN mv bin/astyle "$CONFIG_SCRIPTS_DIR/bin"
+	RUN popd
+	RUN rm -f astyle_2.05.1_linux.tar.gz
+	RUN rm -rf astyle_src
+fi
+
 echo -e "${GOODCOLOR}Install complete!${ENDGOODCOLOR}"
 
 
