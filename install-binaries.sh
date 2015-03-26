@@ -324,10 +324,10 @@ fi
 ############################# Vim YouCompleteMe
 #
 # On ubuntu:
-#   apt-get install cmake
+#   apt-get install cmake ctags
 #
 # On CentOS6:
-#   yum install clang cmake libstdc++-static
+#   yum install clang cmake libstdc++-static ctags
 #   pushd /usr/lib64
 #   ln -s libedit.so.0 libedit.so.2
 #   popd

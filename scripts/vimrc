@@ -64,21 +64,41 @@ if has('cscope')
 "cnoreabbrev csh cs help
 
 	function! LoadCscope()
-		let dbcount=1
+		let l:dbcount=1
 		let l:db = "junk"
 		while (!empty(l:db))
-			let l:db = findfile("cscope.out", ".;", dbcount)
+			let l:db = findfile("cscope.out", ".;", l:dbcount)
 			if (!empty(l:db))
 				let path = strpart(l:db, 0, match(l:db, "/cscope.out$"))
 				set nocscopeverbose " suppress 'duplicate connection' error
+
+				" Load the cscope database into cscope
 				exe "cs add " . l:db . " " . path
+
 				set cscopeverbose
-				let dbcount = dbcount + 1
+				let l:dbcount = l:dbcount + 1
 			endif
 		endwhile
 	endfunction
 
-	au BufEnter /* call LoadCscope()
+	autocmd Filetype c call LoadCscope()
+
+	function! Loadcctree()
+		let l:dbcount=1
+		let l:db = "junk"
+		while (!empty(l:db))
+			let l:db = findfile("cscope.out", ".;", l:dbcount)
+			if (!empty(l:db))
+				" Load the cscope database into cctree
+				if (l:dbcount > 1)
+					exe "CCTreeAppendDB " . l:db
+				else
+					exe "CCTreeLoadDB " . l:db
+				endif
+				let l:dbcount = l:dbcount + 1
+			endif
+		endwhile
+	endfunction
 
 endif
 
@@ -158,6 +178,9 @@ nmap <leader>ne :NERDTree<cr>
 
 " Open taglist with ,tl
 nmap <leader>tl :TlistToggle<cr>
+
+" Taglist plugin opens on the right, rather than the left
+let Tlist_Use_Right_Window = 1
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
