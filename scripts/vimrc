@@ -179,6 +179,10 @@ nmap <leader>ne :NERDTree<cr>
 " Open taglist with ,tl
 nmap <leader>tl :TlistToggle<cr>
 
+" Load cctree taglist with ,cc
+nmap <leader>cc :call Loadcctree()<cr>
+
+
 " Taglist plugin opens on the right, rather than the left
 let Tlist_Use_Right_Window = 1
 
