@@ -73,6 +73,7 @@ $cdir	pyclewn.txt	/*$cdir*
 :TlistUpdate	taglist.txt	/*:TlistUpdate*
 :UseVimball	pi_vimball.txt	/*:UseVimball*
 :VimballList	pi_vimball.txt	/*:VimballList*
+<Space>	space.txt	/*<Space>*
 AnsiEsc	AnsiEsc.txt	/*AnsiEsc*
 AnsiEsc-contents	AnsiEsc.txt	/*AnsiEsc-contents*
 AnsiEsc-copyright	AnsiEsc.txt	/*AnsiEsc-copyright*
@@ -287,6 +288,15 @@ pyclewn_args	pyclewn.txt	/*pyclewn_args*
 pyclewn_connection	pyclewn.txt	/*pyclewn_connection*
 pyclewn_python	pyclewn.txt	/*pyclewn_python*
 pyclewn_terminal	pyclewn.txt	/*pyclewn_terminal*
+space-configuration	space.txt	/*space-configuration*
+space-hooks	space.txt	/*space-hooks*
+space-intro	space.txt	/*space-intro*
+space-license	space.txt	/*space-license*
+space-statusline	space.txt	/*space-statusline*
+space-toc	space.txt	/*space-toc*
+space-usage	space.txt	/*space-usage*
+space.txt	space.txt	/*space.txt*
+space.vim	space.txt	/*space.vim*
 taglist-commands	taglist.txt	/*taglist-commands*
 taglist-debug	taglist.txt	/*taglist-debug*
 taglist-extend	taglist.txt	/*taglist-extend*
