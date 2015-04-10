@@ -59,6 +59,8 @@ if ! cat "$HOME/.gitconfig" | grep -q "path = $SCRIPT_DIR/scripts/gitconfig"; th
 [include]
 	path = $SCRIPT_DIR/scripts/gitconfig
 
+[core]
+	excludesfile = $SCRIPT_DIR/scripts/gitignore_global
 EOF
 fi
 

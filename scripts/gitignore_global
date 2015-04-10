@@ -1,0 +1,8 @@
+# Cscope database files
+cscope.files
+cscope.in.out
+cscope.out
+cscope.po.out
+
+# YouCompleteMe compiled configuration
+.ycm_extra_conf.pyc
