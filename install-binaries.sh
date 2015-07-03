@@ -273,15 +273,15 @@ fi
 #
 if ! python -c 'import clewn' 2>/dev/null ; then
 	PRINTSTART "Python2 pyclewn"
-	RUN rm -f pyclewn-2.0.tar.gz
-	SPRUN rm -rf pyclewn-2.0
-	RUN wget 'https://pypi.python.org/packages/source/p/pyclewn/pyclewn-2.0.tar.gz#md5=c55f6a2c018bdf409c3f28d24616b4f9'
-	RUN tar xzf pyclewn-2.0.tar.gz
-	RUN pushd pyclewn-2.0
+	RUN rm -f pyclewn-2.1.tar.gz
+	SPRUN rm -rf pyclewn-2.1
+	RUN wget 'https://pypi.python.org/packages/source/p/pyclewn/pyclewn-2.1.tar.gz'
+	RUN tar xzf pyclewn-2.1.tar.gz
+	RUN pushd pyclewn-2.1
 	SPRUN python setup.py install
 	RUN popd
-	RUN rm -f pyclewn-2.0.tar.gz
-	SPRUN rm -rf pyclewn-2.0
+	RUN rm -f pyclewn-2.1.tar.gz
+	SPRUN rm -rf pyclewn-2.1
 fi
 
 ###############################################################################
