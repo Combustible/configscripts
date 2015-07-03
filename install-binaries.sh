@@ -28,6 +28,21 @@ RUN() {
 	fi
 }
 
+# Runs command with sudo if USESYSTEMPYTHON = 1
+SPRUN() {
+	echo -e "${GOODCOLOR}Running: ${@}${ENDGOODCOLOR}"
+	if [[ $USESYSTEMPYTHON -eq 1 ]]; then
+		sudo "$@"
+	else
+		"$@"
+	fi
+	RETVAL=$?
+	if [[ $RETVAL -ne 0 ]]; then
+		echo -e "${BADCOLOR}ERROR: execution of command $@ returned ${RETVAL}${ENDBADCOLOR}" >&2
+		exit $RETVAL
+	fi
+}
+
 PRINTSTART() (
 	PACKAGE="$1"
 
@@ -135,7 +150,7 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
 #   yum install python-devel
 #
 # Ubuntu:
-#   apt-get install python-devel
+#   apt-get install python-dev
 #
 #
 if [[ $USESYSTEMPYTHON -eq 0 ]]; then
@@ -192,7 +207,7 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/cscope-compile/bin:$PATH"
 # http://vim.wikia.com/wiki/Building_Vim
 #
 # For Ubuntu:
-# sudo apt-get install libncurses5-dev libatk1.0-dev
+# apt-get install libncurses5-dev libatk1.0-dev
 #
 if [[ ! -d vim-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Vim"
@@ -225,14 +240,14 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 if ! python -c 'import pdb' 2>/dev/null ; then
 	PRINTSTART "Python2 pdb-clone"
 	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
-	RUN rm -rf pdb-clone-1.9.2.py2.7
+	SPRUN rm -rf pdb-clone-1.9.2.py2.7
 	RUN wget 'https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.9.2.py2.7.tar.gz#md5=248b8cdad99c8e3c57accde28e77b586'
 	RUN tar xzf pdb-clone-1.9.2.py2.7.tar.gz
 	RUN pushd pdb-clone-1.9.2.py2.7
-	RUN sudo python setup.py install
+	SPRUN python setup.py install
 	RUN popd
 	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
-	RUN rm -rf pdb-clone-1.9.2.py2.7
+	SPRUN rm -rf pdb-clone-1.9.2.py2.7
 fi
 
 ###############################################################################
@@ -240,14 +255,14 @@ fi
 if ! python -c 'import trollius' 2>/dev/null ; then
 	PRINTSTART "Python2 trollius"
 	RUN rm -f trollius-1.0.4.tar.gz
-	RUN rm -rf trollius-1.0.4
+	SPRUN rm -rf trollius-1.0.4
 	RUN wget 'https://pypi.python.org/packages/source/t/trollius/trollius-1.0.4.tar.gz#md5=3631a464d49d0cbfd30ab2918ef2b783'
 	RUN tar xzf trollius-1.0.4.tar.gz
 	RUN pushd trollius-1.0.4
-	RUN sudo python setup.py install
+	SPRUN python setup.py install
 	RUN popd
 	RUN rm -f trollius-1.0.4.tar.gz
-	RUN rm -rf trollius-1.0.4
+	SPRUN rm -rf trollius-1.0.4
 fi
 
 ###############################################################################
@@ -259,14 +274,14 @@ fi
 if ! python -c 'import clewn' 2>/dev/null ; then
 	PRINTSTART "Python2 pyclewn"
 	RUN rm -f pyclewn-2.0.tar.gz
-	RUN rm -rf pyclewn-2.0
+	SPRUN rm -rf pyclewn-2.0
 	RUN wget 'https://pypi.python.org/packages/source/p/pyclewn/pyclewn-2.0.tar.gz#md5=c55f6a2c018bdf409c3f28d24616b4f9'
 	RUN tar xzf pyclewn-2.0.tar.gz
 	RUN pushd pyclewn-2.0
-	RUN sudo python setup.py install
+	SPRUN python setup.py install
 	RUN popd
 	RUN rm -f pyclewn-2.0.tar.gz
-	RUN rm -rf pyclewn-2.0
+	SPRUN rm -rf pyclewn-2.0
 fi
 
 ###############################################################################
@@ -275,14 +290,14 @@ fi
 if ! python -c 'import serial' 2>/dev/null ; then
 	PRINTSTART "Python2 pyserial"
 	RUN rm -f pyserial-2.7.tar.gz
-	RUN rm -rf pyserial-2.7
+	SPRUN rm -rf pyserial-2.7
 	RUN wget 'https://pypi.python.org/packages/source/p/pyserial/pyserial-2.7.tar.gz#md5=794506184df83ef2290de0d18803dd11'
 	RUN tar xzf pyserial-2.7.tar.gz
 	RUN pushd pyserial-2.7
-	RUN sudo python setup.py install
+	SPRUN python setup.py install
 	RUN popd
 	RUN rm -f pyserial-2.7.tar.gz
-	RUN rm -rf pyserial-2.7
+	SPRUN rm -rf pyserial-2.7
 fi
 
 ###############################################################################
@@ -385,7 +400,7 @@ echo -e "${GOODCOLOR}Install complete!${ENDGOODCOLOR}"
 #----- The following junk still lives here in case I ever need it again ------
 ##############################################################################
 
-# sudo yum install glibc-devel.i686
+# yum install glibc-devel.i686
 #tar xzf gcc-4.6.2.tar.gz
 #pushd gcc-4.6.2
 #./contrib/download_prerequisites
