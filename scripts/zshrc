@@ -7,7 +7,7 @@ HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
 
-setopt appendhistory extendedglob nomatch
+setopt INC_APPEND_HISTORY appendhistory extendedglob nomatch
 unsetopt autocd beep notify
 bindkey -e
 # End of lines configured by zsh-newuser-install
