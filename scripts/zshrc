@@ -151,3 +151,6 @@ old_aliases() {
 	alias d2-1='WINEPREFIX=~/.wine-d2-1 WINEARCH=win32 wine "C:\\Program Files\\Diablo II\\Game.exe" -w &>/dev/null &'
 }
 
+if [[ -e "$HOME/.localrc" ]]; then
+	source "$HOME/.localrc"
+fi
