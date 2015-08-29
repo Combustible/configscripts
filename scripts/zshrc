@@ -88,8 +88,21 @@ unset SSH_ASKPASS
 buildcscope() (
 	rm -f cscope.in.out cscope.po.out cscope.files cscope.out
 	find "$@" -name "*.c" -o -name "*.h" -o -name "*.cpp" | while read line; do
+		filename="$(readlink -f "$line")"
+		if $(which unifdef > /dev/null); then
+			mv "$filename" "${filename}_CSCOPETEMP" >&2
+			unifdef -b "${filename}_CSCOPETEMP" -U__cplusplus > "$filename"
+		fi
 		echo $(readlink -f $line)
 	done > cscope.files && cscope -b -q -k
+
+	if $(which unifdef > /dev/null); then
+		find "$@" -name "*_CSCOPETEMP" | while read line; do
+			filename="$(readlink -f "$line")"
+			origfilename="$(echo "$filename" | sed 's|_CSCOPETEMP$||g' )";
+			mv -f "$filename" "$origfilename"
+		done
+	fi
 )
 
 fixwhitespace() {
