@@ -80,8 +80,8 @@ alias less='~/configscripts/bin/vim-compile/share/vim/vim74/macros/less.sh'
 alias wine32='WINEARCH=win32 WINEPREFIX=~/.wine32 wine'
 alias winecfg32='WINEARCH=win32 WINEPREFIX=~/.wine32 winecfg'
 alias winetricks32='WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks'
-alias astylelinux='astyle --style=linux --indent=tab=8 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --add-one-line-brackets --max-code-length=100'
-alias astyleallman='astyle --style=allman --indent=tab=4 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --add-one-line-brackets --max-code-length=100'
+alias astylelinux='astyle --style=linux --indent=tab=8 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --max-code-length=100'
+alias astyleallman='astyle --style=allman --indent=tab=4 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --max-code-length=100'
 alias scite='SciTE'
 unset SSH_ASKPASS
 
@@ -90,7 +90,7 @@ buildcscope() (
 	find "$@" -name "*.c" -o -name "*.h" -o -name "*.cpp" | while read line; do
 		filename="$(readlink -f "$line")"
 		if $(which unifdef > /dev/null); then
-			mv "$filename" "${filename}_CSCOPETEMP" >&2
+			mv -f "$filename" "${filename}_CSCOPETEMP" >&2
 			unifdef -b "${filename}_CSCOPETEMP" -U__cplusplus > "$filename"
 		fi
 		echo $(readlink -f $line)
