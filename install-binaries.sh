@@ -237,22 +237,23 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 #
 # https://pypi.python.org/pypi/pdb-clone
 #
-if ! python -c 'import pdb' 2>/dev/null ; then
+if ! python -c 'import pdb' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 pdb-clone"
-	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
-	SPRUN rm -rf pdb-clone-1.9.2.py2.7
-	RUN wget 'https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.9.2.py2.7.tar.gz#md5=248b8cdad99c8e3c57accde28e77b586'
-	RUN tar xzf pdb-clone-1.9.2.py2.7.tar.gz
-	RUN pushd pdb-clone-1.9.2.py2.7
+	https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.10.tar.gz
+	RUN rm -f pdb-clone-1.10.tar.gz
+	SPRUN rm -rf pdb-clone-1.10
+	RUN wget 'https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.10.tar.gz'
+	RUN tar xzf pdb-clone-1.10.tar.gz
+	RUN pushd pdb-clone-1.10
 	SPRUN python setup.py install
 	RUN popd
-	RUN rm -f pdb-clone-1.9.2.py2.7.tar.gz
-	SPRUN rm -rf pdb-clone-1.9.2.py2.7
+	RUN rm -f pdb-clone-1.10.tar.gz
+	SPRUN rm -rf pdb-clone-1.10
 fi
 
 ###############################################################################
 ############################# Python2 trollius
-if ! python -c 'import trollius' 2>/dev/null ; then
+if ! python -c 'import trollius' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 trollius"
 	RUN rm -f trollius-1.0.4.tar.gz
 	SPRUN rm -rf trollius-1.0.4
@@ -271,7 +272,7 @@ fi
 # http://pyclewn.sourceforge.net/install.html
 # https://pypi.python.org/pypi/pyclewn
 #
-if ! python -c 'import clewn' 2>/dev/null ; then
+if ! python -c 'import clewn' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 pyclewn"
 	RUN rm -f pyclewn-2.1.tar.gz
 	SPRUN rm -rf pyclewn-2.1
@@ -287,7 +288,7 @@ fi
 ###############################################################################
 ############################# Python2 pyserial
 #
-if ! python -c 'import serial' 2>/dev/null ; then
+if ! python -c 'import serial' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 pyserial"
 	RUN rm -f pyserial-2.7.tar.gz
 	SPRUN rm -rf pyserial-2.7
