@@ -106,15 +106,19 @@ endif
 function! Astylelinux()
 	exe "write"
 	set autoread
-	exe "!astyle --style=linux --indent=tab=8 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --add-one-line-brackets --max-code-length=100 %"
+	exe "!astyle --style=linux --indent=tab=8 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --max-code-length=100 %"
 	set noautoread
 endfunction
 function! Astyleallman()
 	exe "write"
 	set autoread
-	exe "!astyle --style=allman --indent=tab=4 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --add-one-line-brackets --max-code-length=100 %"
+	exe "!astyle --style=allman --indent=tab=4 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --max-code-length=100 %"
 	set noautoread
 endfunction
+
+autocmd Filetype c set formatprg=astyle\ --style=linux\ --indent=tab=8\ --convert-tabs\ --indent-preprocessor\ --min-conditional-indent=3\ --max-instatement-indent=40\ --pad-oper\ --unpad-paren\ --pad-header\ --align-pointer=name\ --indent-namespaces\ --max-code-length=100
+
+
 
 function! TabsOn()
 	set list listchars=tab:\>\ ,trail:-
