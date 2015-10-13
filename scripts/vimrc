@@ -149,7 +149,7 @@ nmap <C-M> :call MouseOn()<CR>
 " Show spaces used for indenting from the start of a line, unless the next
 " immediate character is a *
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-autocmd Filetype c match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
+autocmd Filetype c,cpp match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
 
 " Fix whitespace on saving
 autocmd BufWritePre * :%s/\s\+$//e
@@ -186,6 +186,9 @@ nmap <leader>tl :TlistToggle<cr>
 " Load cctree taglist with ,cc
 nmap <leader>cc :call Loadcctree()<cr>
 
+" Set YouCompleteMe semantic completer to trigger on 'Control + k'
+let g:ycm_key_invoke_completion = '<c-k>'
+let g:ycm_always_populate_location_list = 1
 
 " Taglist plugin opens on the right, rather than the left
 let Tlist_Use_Right_Window = 1
@@ -203,4 +206,8 @@ imap <c-s> <Esc>:w<CR>a
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+
+" Rebuild PlantUML with ,ml
+" let g:plantuml_executable_script='java -jar /path/to/plantuml.jar -tsvg'
+" nmap <leader>ml :w<CR> :silent make<CR>
 
