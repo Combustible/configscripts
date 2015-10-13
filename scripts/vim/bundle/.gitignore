@@ -3,3 +3,4 @@ Vundle.vim
 neobundle.vim
 .neobundle/
 NeoBundle.lock
+YCM-Generator
