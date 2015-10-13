@@ -326,8 +326,6 @@ fi
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
 
 
-
-
 ###############################################################################
 ############################# Vim Vundle
 if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
@@ -335,6 +333,16 @@ if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]] || [[ "$REINSTALL " == "TRUE " ]]; 
 	rm -rf "$HOME/.vim/bundle/Vundle.vim"
 	RUN git clone 'https://github.com/gmarik/Vundle.vim.git' "$HOME/.vim/bundle/Vundle.vim"
 fi
+
+
+###############################################################################
+############################# Vim Neobundle
+if [[ ! -d "$HOME/.vim/bundle/neobundle.vim" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+	PRINTSTART "Vim Neobundle"
+	rm -rf "$HOME/.vim/bundle/neobundle.vim"
+	RUN git clone 'https://github.com/Shougo/neobundle.vim.git' "$HOME/.vim/bundle/neobundle.vim"
+fi
+
 
 ###############################################################################
 ############################# Vim YouCompleteMe
