@@ -283,6 +283,16 @@ if ! python -c 'import clewn' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; the
 	RUN popd
 	RUN rm -f pyclewn-2.1.tar.gz
 	SPRUN rm -rf pyclewn-2.1
+
+	# Test if pyclewn installation was successful
+	RUN python -c "import clewn;"
+
+	# Install the pyclewn vimball
+	RUN pushd /tmp
+	PYCLEWN_VIMBALL="$(python -c "import clewn; clewn.get_vimball()" | cut -d ' ' -f '3-')"
+	RUN test -e "$PYCLEWN_VIMBALL"
+	RUN vim -S "$PYCLEWN_VIMBALL" +qall
+	RUN popd
 fi
 
 ###############################################################################
@@ -401,9 +411,18 @@ if [[ ! -e "astyle" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN rm -rf astyle_src
 fi
 
+
+###############################################################################
+############################# Rebuild VIM help tags
+RUN cd "$CONFIG_SCRIPTS_DIR/scripts/vim/doc/"
+RUN rm -f 'tags'
+RUN vim '+helptags .' '+qall' &>/dev/null
+
+
+
+
+
 echo -e "${GOODCOLOR}Install complete!${ENDGOODCOLOR}"
-
-
 
 ##############################################################################
 #----- The following junk still lives here in case I ever need it again ------
