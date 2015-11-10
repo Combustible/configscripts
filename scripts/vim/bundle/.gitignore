@@ -4,3 +4,4 @@ neobundle.vim
 .neobundle/
 NeoBundle.lock
 YCM-Generator
+vim-easygrep
