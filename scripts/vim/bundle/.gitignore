@@ -5,3 +5,7 @@ neobundle.vim
 NeoBundle.lock
 YCM-Generator
 vim-easygrep
+CCTree
+nerdtree-git-plugin
+nerdtree
+vim-fugitive

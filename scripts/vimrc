@@ -65,17 +65,33 @@ call neobundle#begin(expand('~/.vim/bundle'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Add or remove your Bundles here:
+"""""""""""""" Add or remove your Bundles here:
+
+" YouCompleteMe config file autogenerator
 NeoBundle 'rdnetto/YCM-Generator'
+
+" Easy find/replace
 NeoBundle 'dkprice/vim-easygrep'
+
+" Call graphs using cscope
+NeoBundle 'hari-rangarajan/CCTree'
+
+" File system browser
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Xuyuanp/nerdtree-git-plugin'
+
+" Git tools inside vim
+NeoBundle 'tpope/vim-fugitive'
+
 "NeoBundle 'Shougo/neosnippet.vim'
 "NeoBundle 'Shougo/neosnippet-snippets'
-"NeoBundle 'tpope/vim-fugitive'
 "NeoBundle 'ctrlpvim/ctrlp.vim'
 ""NeoBundle 'flazz/vim-colorschemes'
 
 " You can specify revision/branch/tag.
 "NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+""""""""""""" End Bundles
 
 " Required:
 call neobundle#end()
@@ -194,7 +210,7 @@ autocmd Filetype c,cpp match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\
 " Fix whitespace on saving
 autocmd BufWritePre * :%s/\s\+$//e
 
-
+set showcmd
 set tabstop=4
 set shiftwidth=4
 
