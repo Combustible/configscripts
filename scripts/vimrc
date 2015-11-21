@@ -204,8 +204,8 @@ nmap <C-M> :call MouseOn()<CR>
 " Show tabs that are not at the start of a line:
 " Show spaces used for indenting from the start of a line, unless the next
 " immediate character is a *
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-autocmd Filetype c,cpp match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
+" highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+" autocmd Filetype c,cpp match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
 
 " Fix whitespace on saving
 autocmd BufWritePre * :%s/\s\+$//e
