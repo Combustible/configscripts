@@ -239,7 +239,6 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 #
 if ! python -c 'import pdb' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 pdb-clone"
-	https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.10.tar.gz
 	RUN rm -f pdb-clone-1.10.tar.gz
 	SPRUN rm -rf pdb-clone-1.10
 	RUN wget 'https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.10.tar.gz'
@@ -274,15 +273,15 @@ fi
 #
 if ! python -c 'import clewn' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 pyclewn"
-	RUN rm -f pyclewn-2.1.tar.gz
-	SPRUN rm -rf pyclewn-2.1
-	RUN wget 'https://pypi.python.org/packages/source/p/pyclewn/pyclewn-2.1.tar.gz'
-	RUN tar xzf pyclewn-2.1.tar.gz
-	RUN pushd pyclewn-2.1
+	RUN rm -f pyclewn-*.tar.gz
+	SPRUN rm -rf pyclewn-*
+	RUN wget 'https://pypi.python.org/packages/source/p/pyclewn/pyclewn-2.2.tar.gz'
+	RUN tar xzf pyclewn-2.2.tar.gz
+	RUN pushd pyclewn-2.2
 	SPRUN python setup.py install
 	RUN popd
-	RUN rm -f pyclewn-2.1.tar.gz
-	SPRUN rm -rf pyclewn-2.1
+	RUN rm -f pyclewn-2.2.tar.gz
+	SPRUN rm -rf pyclewn-2.2
 
 	# Test if pyclewn installation was successful
 	RUN python -c "import clewn;"
