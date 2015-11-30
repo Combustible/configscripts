@@ -357,7 +357,7 @@ fi
 ############################# Vim YouCompleteMe
 #
 # On ubuntu:
-#   apt-get install cmake ctags
+#   apt-get install cmake ctags g++
 #
 # On CentOS6:
 #   yum install clang cmake libstdc++-static ctags
