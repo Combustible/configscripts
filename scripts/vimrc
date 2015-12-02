@@ -199,6 +199,14 @@ function! MouseOff()
 endfunction
 nmap <C-M> :call MouseOn()<CR>
 
+" Function to remap control+P and control+X in command line GDB mode
+function! PyclewnCustomMap()
+	map <C-P> :exe "Cprint " . expand("<cword>") <CR>
+	vnoremap <C-P> y:Cprint <C-R><C-R>"<C-R><C-R><CR><CR>
+	map <C-X> :exe "Cprint *" . expand("<cword>") <CR>
+	vnoremap <C-X> y:Cprint *<C-R><C-R>"<C-R><C-R><CR><CR>
+endfunction
+
 
 " More info here: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 " Show tabs that are not at the start of a line:

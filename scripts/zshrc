@@ -111,6 +111,10 @@ fixwhitespace() {
 	done
 }
 
+vimdebug() (
+	vim -c "Pyclewn gdb --args $@" -c "Cmapkeys" -c "Cstart" -c "call PyclewnCustomMap()"
+)
+
 # Scanner macros
 scs() (
 	if [[ ! "$1" == "" ]]; then
