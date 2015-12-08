@@ -71,6 +71,11 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-finish
 fi
 
+# Disable ZSH semantic autocompletion for the following commands:
+
+# Android Debugger:
+compdef -d adb
+
 # User specific aliases and functions
 
 alias ll='ls -hl'
