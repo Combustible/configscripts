@@ -73,6 +73,8 @@ fi
 
 # User specific aliases and functions
 
+alias ll='ls -hl'
+alias la='ls -hal'
 alias mv='mv -i'
 alias cp='cp -i'
 alias tree='tree --charset=X'
