@@ -1,5 +1,4 @@
 YouCompleteMe
-Vundle.vim
 neobundle.vim
 .neobundle/
 NeoBundle.lock

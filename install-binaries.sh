@@ -142,6 +142,7 @@ fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
 
+
 ###############################################################################
 ############################# Python2
 # Note: python-devel is only required if using system python
@@ -177,6 +178,7 @@ elif [[ -d python2 ]]; then
 	RUN rm -rf python2
 fi
 
+
 ###############################################################################
 ############################# Cscope
 #
@@ -200,6 +202,7 @@ if [[ ! -d cscope-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/cscope-compile/bin:$PATH"
+
 
 ###############################################################################
 ############################# Vim
@@ -232,6 +235,7 @@ fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 
+
 ###############################################################################
 ############################# Python2 pdb-clone
 #
@@ -250,6 +254,7 @@ if ! python -c 'import pdb' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	SPRUN rm -rf pdb-clone-1.10
 fi
 
+
 ###############################################################################
 ############################# Python2 trollius
 if ! python -c 'import trollius' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
@@ -264,6 +269,7 @@ if ! python -c 'import trollius' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; 
 	RUN rm -f trollius-1.0.4.tar.gz
 	SPRUN rm -rf trollius-1.0.4
 fi
+
 
 ###############################################################################
 ############################# Python2 pyclewn
@@ -294,6 +300,7 @@ if ! python -c 'import clewn' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; the
 	RUN popd
 fi
 
+
 ###############################################################################
 ############################# Python2 pyserial
 #
@@ -309,6 +316,7 @@ if ! python -c 'import serial' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; th
 	RUN rm -f pyserial-2.7.tar.gz
 	SPRUN rm -rf pyserial-2.7
 fi
+
 
 ###############################################################################
 ############################# GDB
@@ -333,15 +341,6 @@ if [[ ! -d gdb-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
-
-
-###############################################################################
-############################# Vim Vundle
-if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
-	PRINTSTART "Vim Vundle"
-	rm -rf "$HOME/.vim/bundle/Vundle.vim"
-	RUN git clone 'https://github.com/gmarik/Vundle.vim.git' "$HOME/.vim/bundle/Vundle.vim"
-fi
 
 
 ###############################################################################
