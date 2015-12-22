@@ -206,6 +206,15 @@ nmap <leader>cc :call Loadcctree()<cr>
 " Edit this vimrc file with ,vi
 nmap <leader>vi :tabedit $MYVIMRC<CR>
 
+" Quickfix mappings:
+nmap <leader>co :copen<CR>
+nmap <leader>cq :cclose<CR>
+nmap <leader>cn :cn<CR>
+nmap <leader>cp :cp<CR>
+
+" Disable highlighting:
+nmap <leader>hl :nohls<CR>
+
 " Source the vimrc file after saving it
 if has("autocmd")
 	autocmd bufwritepost .vimrc source $MYVIMRC
