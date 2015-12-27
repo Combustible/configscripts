@@ -117,7 +117,7 @@ cd "$CONFIG_SCRIPTS_DIR/bin"
 #   yum install epel-release
 #
 # Debian/Ubuntu:
-#   apt-get install libcurl4-openssl-dev libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x autoconf
+#   apt-get install libcurl4-openssl-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x autoconf
 #
 # Get source URL from here: https://www.kernel.org/pub/software/scm/git/
 #
