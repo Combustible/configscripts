@@ -123,12 +123,13 @@ cd "$CONFIG_SCRIPTS_DIR/bin"
 #
 if [[ ! -d git-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Git"
-	RUN rm -f git-2.3.0.tar.gz
-	RUN rm -rf git-2.3.0
+	CONFIG_GITVER=2.6.4
+	RUN rm -f git-${CONFIG_GITVER}.tar.gz
+	RUN rm -rf git-${CONFIG_GITVER}
 	RUN rm -rf git-compile
-	RUN wget 'https://www.kernel.org/pub/software/scm/git/git-2.3.0.tar.gz'
-	RUN tar xzf git-2.3.0.tar.gz
-	RUN pushd git-2.3.0
+	RUN wget "https://www.kernel.org/pub/software/scm/git/git-${CONFIG_GITVER}.tar.gz"
+	RUN tar xzf git-${CONFIG_GITVER}.tar.gz
+	RUN pushd git-${CONFIG_GITVER}
 	RUN make configure
 	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/git-compile"
 	RUN make all "-j$NUMTHREADS"
@@ -136,8 +137,8 @@ if [[ ! -d git-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN make info "-j$NUMTHREADS"
 	RUN make install install-doc install-html install-info
 	RUN popd
-	RUN rm -f git-2.3.0.tar.gz
-	RUN rm -rf git-2.3.0
+	RUN rm -f git-${CONFIG_GITVER}.tar.gz
+	RUN rm -rf git-${CONFIG_GITVER}
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
