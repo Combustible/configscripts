@@ -34,7 +34,18 @@ NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 " Git tools inside vim
 NeoBundle 'tpope/vim-fugitive'
 
-NeoBundleLocal '~/.vim/bundle/YouCompleteMe'
+" Autocompletion for many file types
+NeoBundle '~/.vim/bundle/YouCompleteMe'
+
+" Local .vimrc files for projects
+NeoBundle 'MarcWeber/vim-addon-local-vimrc'
+
+" Easy commenting / uncommenting with gc
+NeoBundle 'tpope/vim-commentary'
+
+" Adds ae and ie motions to operate on the entire file
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-entire'
 
 "NeoBundle 'Shougo/neosnippet.vim'
 "NeoBundle 'Shougo/neosnippet-snippets'

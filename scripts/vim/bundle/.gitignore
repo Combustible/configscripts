@@ -8,3 +8,7 @@ CCTree
 nerdtree-git-plugin
 nerdtree
 vim-fugitive
+vim-addon-local-vimrc
+vim-commentary
+vim-textobj-user
+vim-textobj-entire
