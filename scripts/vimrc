@@ -136,7 +136,7 @@ function! Astyleallman()
 	set noautoread
 endfunction
 
-autocmd Filetype c set formatprg=astyle\ --style=linux\ --indent=tab=8\ --convert-tabs\ --indent-preprocessor\ --min-conditional-indent=3\ --max-instatement-indent=60\ --pad-oper\ --unpad-paren\ --pad-header\ --align-pointer=name\ --indent-namespaces\ --max-code-length=100
+autocmd Filetype c,cpp set formatprg=astyle\ --style=linux\ --indent=tab=8\ --convert-tabs\ --indent-preprocessor\ --min-conditional-indent=3\ --max-instatement-indent=60\ --pad-oper\ --unpad-paren\ --pad-header\ --align-pointer=name\ --indent-namespaces\ --max-code-length=100
 
 
 
@@ -179,24 +179,45 @@ endfunction
 " highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 " autocmd Filetype c,cpp match ExtraWhitespace /^[^/].*[^\t]\zs\t\+\|^\zs \+\ze[^\*]/
 
-" Fix whitespace on saving
+" Remove whitespace from end of lines when saving
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Show commands triggered by macros/leader shortcuts
 set showcmd
+
+" Use UTF-8 encoding
+set encoding=utf-8
+
+" Use tabs, display them with a width of four characters
 set tabstop=4
 set shiftwidth=4
 
 " Text files don't use tabs
 autocmd FileType text setlocal expandtab
 
-" allow backspacing over everything in insert mode
+" Allow backspacing over everything in insert mode
 set bs=indent,eol,start
-" always set autoindenting on
-set ai
-" keep lots of command line history
-set history=1000
-" show the cursor position all the time
+
+" Always set autoindenting on
+set autoindent
+
+" Keep lots of command line history
+set history=10000
+
+" Show the cursor position all the time
 set ruler
+
+" Show a line at the current cursor position
+set cursorline
+
+" Make search more visible
+set incsearch
+set showmatch
+set hlsearch
+
+" ZSH style autocompletion via tab
+set wildmenu
+set wildmode=full
 
 " If input is from stdin, assume it hasn't been modified (and thus will not require saving or ! to escape)
 autocmd StdinReadPost * set nomodified
