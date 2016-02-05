@@ -188,18 +188,18 @@ fi
 #
 if [[ ! -d cscope-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Cscope"
-	RUN rm -f cscope-15.8a.tar.gz
-	RUN rm -rf cscope-15.8a
+	RUN rm -f cscope-15.8b.tar.gz
+	RUN rm -rf cscope-15.8b
 	RUN rm -rf cscope-compile
-	RUN wget 'http://downloads.sourceforge.net/project/cscope/cscope/15.8a/cscope-15.8a.tar.gz'
-	RUN tar xzf cscope-15.8a.tar.gz
-	RUN pushd cscope-15.8a
+	RUN wget 'https://downloads.sourceforge.net/project/cscope/cscope/15.8b/cscope-15.8b.tar.gz'
+	RUN tar xzf cscope-15.8b.tar.gz
+	RUN pushd cscope-15.8b
 	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/cscope-compile"
 	RUN make "-j$NUMTHREADS"
 	RUN make install
 	RUN popd
-	RUN rm -f cscope-15.8a.tar.gz
-	RUN rm -rf cscope-15.8a
+	RUN rm -f cscope-15.8b.tar.gz
+	RUN rm -rf cscope-15.8b
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/cscope-compile/bin:$PATH"
@@ -327,18 +327,18 @@ if [[ ! -d gdb-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 
 	export LDFLAGS="-Wl,-rpath,$CONFIG_SCRIPTS_DIR/bin/python2/lib -L$CONFIG_SCRIPTS_DIR/bin/python2/lib"
 
-	RUN rm -f gdb-7.8.2.tar.gz
-	RUN rm -rf gdb-7.8.2
+	RUN rm -f gdb-7.10.1.tar.gz
+	RUN rm -rf gdb-7.10.1
 	RUN rm -rf gdb-compile
-	RUN wget 'http://ftp.gnu.org/gnu/gdb/gdb-7.8.2.tar.gz'
-	RUN tar xzf gdb-7.8.2.tar.gz
-	RUN pushd gdb-7.8.2
+	RUN wget 'https://ftp.gnu.org/gnu/gdb/gdb-7.10.1.tar.gz'
+	RUN tar xzf gdb-7.10.1.tar.gz
+	RUN pushd gdb-7.10.1
 	RUN ./configure --with-python --prefix="$CONFIG_SCRIPTS_DIR/bin/gdb-compile"
 	RUN make "-j$NUMTHREADS"
 	RUN make install
 	RUN popd
-	RUN rm -f gdb-7.8.2.tar.gz
-	RUN rm -rf gdb-7.8.2
+	RUN rm -f gdb-7.10.1.tar.gz
+	RUN rm -rf gdb-7.10.1
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
@@ -404,7 +404,7 @@ if [[ ! -e "astyle" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN rm -f astyle_2.05.1_linux.tar.gz
 	RUN rm -f astyle
 	RUN rm -rf astyle_src
-	RUN wget 'http://downloads.sourceforge.net/project/astyle/astyle/astyle%202.05.1/astyle_2.05.1_linux.tar.gz'
+	RUN wget 'https://downloads.sourceforge.net/project/astyle/astyle/astyle%202.05.1/astyle_2.05.1_linux.tar.gz'
 	RUN mkdir astyle_src
 	RUN pushd astyle_src
 	RUN tar xzf ../astyle_2.05.1_linux.tar.gz
