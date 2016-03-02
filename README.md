@@ -9,16 +9,18 @@ It may be useful to people who are interested in learning about Vim and trying o
 Installing this package will add customization for the following items:
 
 * $HOME/.gitconfig
-* ~/.gdbinit
-* ~/.zshrc
-* ~/.commonrc
-* ~/.vimrc
-* ~/.vim
+* $HOME/.gdbinit
+* $HOME/.zshrc
+* $HOME/.commonrc
+* $HOME/.vimrc
+* $HOME/.vim
 
 ## Setup
 ### Clone project
+```sh
 cd $HOME
 git clone https://github.com/Combustible/configscripts.git
+```
 
 ### Install required packages:
 #### Ubuntu:
