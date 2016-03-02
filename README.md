@@ -24,7 +24,9 @@ git clone https://github.com/Combustible/configscripts.git
 
 ### Install required packages:
 #### Ubuntu:
+```sh
 apt-get install libcurl4-openssl-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x autoconf python-dev libncurses5-dev libatk1.0-dev cmake ctags g++
+```
 
 
 #### CentOS / Fedora:
