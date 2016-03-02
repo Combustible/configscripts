@@ -8,12 +8,12 @@ It may be useful to people who are interested in learning about Vim and trying o
 
 Installing this package will add customization for the following items:
 
-~/.gitconfig
-~/.gdbinit
-~/.zshrc
-~/.commonrc
-~/.vimrc
-~/.vim
+* $HOME/.gitconfig
+* ~/.gdbinit
+* ~/.zshrc
+* ~/.commonrc
+* ~/.vimrc
+* ~/.vim
 
 ## Setup
 ### Clone project
@@ -26,17 +26,23 @@ apt-get install libcurl4-openssl-dev libexpat1-dev gettext libz-dev libssl-dev a
 
 
 #### CentOS / Fedora:
+```sh
 yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc xmlto docbook2X autoconf gcc perl-devel gcc-c++ python-devel ncurses-devel clang cmake libstdc++-static ctags
 ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
+```
 
 Additionally, if using CentOS6 this might be required:
+```sh
 pushd /usr/lib64
 ln -s libedit.so.0 libedit.so.2
 popd
+```
 
 ### Install scripts
+```sh
 cd $HOME/configscripts
 ./install-scripts.sh
+```
 
 This will add some symbolic links to your home directory to make the contents all point to items in $HOME/configscripts.
 If files already exist and are not symbolic links, they won't be overwritten
@@ -44,8 +50,10 @@ If files already exist and are not symbolic links, they won't be overwritten
 Note that I use zsh instead of Bash. If you use bash or any other shell, the install-scripts.sh script will tell you that you have to add "source $HOME/.commonrc" to whatever shell script is run when you log in (for example, $HOME/.bashrc)
 
 ### Install binaries
+```sh
 cd $HOME/configscripts
 ./install-binaries -j8
+```
 
 This will download and compile several programs from source under $HOME/configscripts/bin. Look at the script, it's pretty well documented.
 
