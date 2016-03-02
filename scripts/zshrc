@@ -4,8 +4,8 @@ source "$HOME/.commonrc"
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=1000000
+SAVEHIST=1000000
 
 setopt INC_APPEND_HISTORY appendhistory extendedglob nomatch
 unsetopt autocd beep notify
@@ -92,6 +92,8 @@ alias astyleallman='astyle --style=allman --indent=tab=4 --convert-tabs --indent
 alias scite='SciTE'
 unset SSH_ASKPASS
 
+# Builds a single cscope database in the current directory to index the files/directories provided as arguments.
+# Probably the most common invocation is 'buildcscope .' to index the current directory and subdirectories.
 buildcscope() (
 	rm -f cscope.in.out cscope.po.out cscope.files cscope.out
 	find "$@" -name "*.c" -o -name "*.h" -o -name "*.cpp" | while read line; do
@@ -112,12 +114,14 @@ buildcscope() (
 	fi
 )
 
+# Strips trailing whitespace errors from the files specified as arguments
 fixwhitespace() {
 	for file in "$@"; do
 		sed -i -e's|[ \t]*\([\r\n]*\)$|\1|g' "$file"
 	done
 }
 
+# Launches vim with a Pyclewn GDB debugging session. Arguments are the program to launch
 vimdebug() (
 	vim -c "Pyclewn gdb --args $@" -c "Cmapkeys" -c "Cstart" -c "call PyclewnCustomMap()"
 )
@@ -159,21 +163,6 @@ sgd() (
 		cd ..
 	fi
 )
-
-
-old_aliases() {
-	alias vncdock='vncserver -localhost -geometry 1900x1140'
-	alias vnclaptop='vncserver -localhost -geometry 1920x1020'
-	alias vncroot='x11vnc -xkb -noxrecord -noxfixes -noxdamage -localhost -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/x11vnc.log'
-	alias wakelaptop='wakeonlan 00:1c:25:b8:f6:5b'
-	alias vnclaptop='vncviewer 192.168.0.3'
-	alias steam='WINEPREFIX=~/.wine-steam WINEARCH=win32 wine "C:\\Program Files\\Steam\\Steam.exe" -no-dwrite'
-	alias steam-giana='WINEPREFIX=~/.wine-giana WINEARCHCRAP=win32 wine "C:\\Program Files (x86)\\Steam\\Steam.exe" -no-dwrite'
-	alias wine-diablo3='WINEPREFIX=~/.wine-diablo3 wine'
-	alias winecfg-diablo3='WINEPREFIX=~/.wine-diablo3 winecfg'
-	alias wine-d2-1='WINEPREFIX=~/.wine-d2-1 WINEARCH=win32 wine'
-	alias d2-1='WINEPREFIX=~/.wine-d2-1 WINEARCH=win32 wine "C:\\Program Files\\Diablo II\\Game.exe" -w &>/dev/null &'
-}
 
 if [[ -e "$HOME/.localrc" ]]; then
 	source "$HOME/.localrc"
