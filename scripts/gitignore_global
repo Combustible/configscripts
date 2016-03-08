@@ -6,3 +6,7 @@ cscope.po.out
 
 # YouCompleteMe compiled configuration
 .ycm_extra_conf.pyc
+
+# Vim tmp files
+.*.swp
+.*.swo
