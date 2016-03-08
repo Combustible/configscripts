@@ -136,6 +136,8 @@ function! Astyleallman()
 	set noautoread
 endfunction
 
+" For C and C++ files, set the gq autoformat command to use astyle
+" Command below produces Linux kernel style code
 autocmd Filetype c,cpp set formatprg=astyle\ --style=linux\ --indent=tab=8\ --convert-tabs\ --indent-preprocessor\ --min-conditional-indent=3\ --max-instatement-indent=60\ --pad-oper\ --unpad-paren\ --pad-header\ --align-pointer=name\ --indent-namespaces\ --max-code-length=100
 
 
@@ -162,14 +164,6 @@ function! MouseOff()
 	set ttymouse=
 endfunction
 nmap <C-M> :call MouseOn()<CR>
-
-" Function to remap control+P and control+X in command line GDB mode
-function! PyclewnCustomMap()
-	map <C-P> :exe "Cprint " . expand("<cword>") <CR>
-	vnoremap <C-P> y:Cprint <C-R><C-R>"<C-R><C-R><CR><CR>
-	map <C-X> :exe "Cprint *" . expand("<cword>") <CR>
-	vnoremap <C-X> y:Cprint *<C-R><C-R>"<C-R><C-R><CR><CR>
-endfunction
 
 
 " More info here: http://vim.wikia.com/wiki/Highlight_unwanted_spaces
@@ -269,6 +263,12 @@ endif
 " Control + S saves current file
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
+
+" Remap control+P and control+X to work better with Pyclewn for GDB
+map <C-P> :exe "Cprint " . expand("<cword>") <CR>
+vnoremap <C-P> y:Cprint <C-R><C-R>"<C-R><C-R><CR><CR>
+map <C-X> :exe "Cprint *" . expand("<cword>") <CR>
+vnoremap <C-X> y:Cprint *<C-R><C-R>"<C-R><C-R><CR><CR>
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
