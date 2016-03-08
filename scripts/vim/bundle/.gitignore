@@ -12,3 +12,4 @@ vim-addon-local-vimrc
 vim-commentary
 vim-textobj-user
 vim-textobj-entire
+ctrlp.vim
