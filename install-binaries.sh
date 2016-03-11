@@ -345,15 +345,6 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
 
 
 ###############################################################################
-############################# Vim Neobundle
-if [[ ! -d "$HOME/.vim/bundle/neobundle.vim" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
-	PRINTSTART "Vim Neobundle"
-	rm -rf "$HOME/.vim/bundle/neobundle.vim"
-	RUN git clone 'https://github.com/Shougo/neobundle.vim.git' "$HOME/.vim/bundle/neobundle.vim"
-fi
-
-
-###############################################################################
 ############################# Vim YouCompleteMe
 #
 # On ubuntu:
@@ -371,25 +362,34 @@ if [[ ! -e "$HOME/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so" ]] || 
 		echo -e "${BADCOLOR}       You must compile it (and clang) manually.${ENDBADCOLOR}" >&2
 		YOUCOMPLETEME_32ERROR=true
 	else
-		PRINTSTART "Vim YouCompleteMe"
-		RUN pushd "$HOME/.vim/bundle"
-		RUN	rm -rf YouCompleteMe
-		RUN git clone 'https://github.com/Valloric/YouCompleteMe.git'
-		RUN cd YouCompleteMe
-		RUN git submodule update --init --recursive
-
+		## Note this installation is performed by NeoComplete as specified in ~/.vimrc
+		## Install here only if a local python installation is being used
 		if [[ $USESYSTEMPYTHON -eq 0 ]]; then
+			PRINTSTART "Vim YouCompleteMe"
+			RUN pushd "$HOME/.vim/bundle"
+			RUN	rm -rf YouCompleteMe
+			RUN git clone 'https://github.com/Valloric/YouCompleteMe.git'
+			RUN cd YouCompleteMe
+			RUN git submodule update --init --recursive
+
 			export CMAKE_INCLUDE_PATH="$CONFIG_SCRIPTS_DIR/bin/python2/include"
 			export EXTRA_CMAKE_ARGS="-DPYTHON_INCLUDE_DIR=$CONFIG_SCRIPTS_DIR/bin/python2/include/python2.7/ -DPYTHON_LIBRARY=$CONFIG_SCRIPTS_DIR/bin/python2/lib/libpython2.7.so -DPYTHON_EXECUTABLE=$CONFIG_SCRIPTS_DIR/bin/python2/bin/python"
-		fi
 
-		if [[ "$(ldd --version | grep 'ldd' | sed -e 's|^[^0-9]*||g')" == "2.12" ]]; then
-			RUN python install.py --clang-completer --system-libclang
-		else
 			RUN python install.py --clang-completer
+
+			RUN popd
 		fi
-		RUN popd
 	fi
+fi
+
+
+###############################################################################
+############################# Vim Neobundle
+if [[ ! -d "$HOME/.vim/bundle/neobundle.vim" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+	PRINTSTART "Vim Neobundle"
+	rm -rf "$HOME/.vim/bundle/neobundle.vim"
+	RUN git clone 'https://github.com/Shougo/neobundle.vim.git' "$HOME/.vim/bundle/neobundle.vim"
+	vim +NeoBundleInstall +qall
 fi
 
 

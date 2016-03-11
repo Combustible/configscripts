@@ -16,7 +16,10 @@ call neobundle#begin(expand('~/.vim/bundle'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-"""""""""""""" Add or remove your Bundles here:
+"""""""""""""" Begin Neobundle plugins
+
+" 5 minute install timeout for bundles
+let g:neobundle#install_process_timeout = 1500
 
 " YouCompleteMe config file autogenerator
 NeoBundle 'rdnetto/YCM-Generator'
@@ -35,7 +38,14 @@ NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 NeoBundle 'tpope/vim-fugitive'
 
 " Autocompletion for many file types
-NeoBundle '~/.vim/bundle/YouCompleteMe'
+NeoBundle 'Valloric/YouCompleteMe', {
+     \ 'build'      : {
+        \ 'mac'     : './install.py',
+        \ 'unix'    : './install.py',
+        \ 'windows' : 'install.py',
+        \ 'cygwin'  : './install.py'
+        \ }
+     \ }
 
 " Local .vimrc files for projects
 NeoBundle 'MarcWeber/vim-addon-local-vimrc'
