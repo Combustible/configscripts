@@ -221,8 +221,8 @@ autocmd StdinReadPost * set nomodified
 " Fix weird NERDTree characters
 let g:NERDTreeDirArrows=0
 
-" Open Ctrl-P with control+n since control+p is used by pyclewn
-let g:ctrlp_map = '<c-n>'
+" Open Ctrl-P with ,p since control+p is used by pyclewn
+let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 
 " Open nerdtree with ,ne
