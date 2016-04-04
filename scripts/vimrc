@@ -262,6 +262,7 @@ endif
 " Set YouCompleteMe semantic completer to trigger on 'Control + k'
 let g:ycm_key_invoke_completion = '<c-k>'
 let g:ycm_always_populate_location_list = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Taglist plugin opens on the right, rather than the left
 let Tlist_Use_Right_Window = 1
