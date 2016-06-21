@@ -409,7 +409,7 @@ if [[ ! -e "astyle" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN pushd astyle_src
 	RUN tar xzf ../astyle_2.05.1_linux.tar.gz
 	RUN cd astyle/build/gcc
-	RUN make
+	RUN make "-j$NUMTHREADS"
 	RUN mv bin/astyle "$CONFIG_SCRIPTS_DIR/bin"
 	RUN popd
 	RUN rm -f astyle_2.05.1_linux.tar.gz
