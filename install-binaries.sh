@@ -217,7 +217,7 @@ if [[ ! -d vim-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Vim"
 	RUN rm -rf vim-src
 	RUN rm -rf vim-compile
-	RUN git clone 'https://github.com/b4winckler/vim.git' vim-src
+	RUN git clone 'https://github.com/vim/vim.git' vim-src
 	RUN pushd vim-src
 	RUN make distclean
 	RUN ./configure \
