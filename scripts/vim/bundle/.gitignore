@@ -13,3 +13,4 @@ vim-commentary
 vim-textobj-user
 vim-textobj-entire
 ctrlp.vim
+vim-bracketed-paste

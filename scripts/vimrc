@@ -57,6 +57,9 @@ NeoBundle 'kana/vim-textobj-entire'
 " Adds fuzzy file searching
 NeoBundle 'ctrlpvim/ctrlp.vim'
 
+" Automatic paste mode
+NeoBundle 'ConradIrwin/vim-bracketed-paste'
+
 "NeoBundle 'Shougo/neosnippet.vim'
 "NeoBundle 'Shougo/neosnippet-snippets'
 ""NeoBundle 'flazz/vim-colorschemes'
