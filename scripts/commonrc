@@ -49,7 +49,7 @@ buildcscope() (
 			unifdef -b "${filename}_CSCOPETEMP" -U__cplusplus > "$filename"
 		fi
 		echo $(readlink -f $line)
-	done > cscope.files && cscope -b -q -k
+	done | sort | uniq > cscope.files && cscope -b -q -k
 
 	if $(which unifdef > /dev/null); then
 		find "$@" -name "*_CSCOPETEMP" | while read line; do
