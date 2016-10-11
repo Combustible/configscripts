@@ -60,6 +60,9 @@ NeoBundle 'ctrlpvim/ctrlp.vim'
 " Automatic paste mode
 NeoBundle 'ConradIrwin/vim-bracketed-paste'
 
+" AnsiEsc - Lets you load files with ANSI color codes embedded in them
+NeoBundle 'powerman/vim-plugin-AnsiEsc'
+
 "NeoBundle 'Shougo/neosnippet.vim'
 "NeoBundle 'Shougo/neosnippet-snippets'
 ""NeoBundle 'flazz/vim-colorschemes'
