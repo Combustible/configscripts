@@ -283,6 +283,9 @@ endif
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
 
+" Disable Q starting Ex mode
+nnoremap Q <nop>
+
 " Remap control+P and control+X to work better with Pyclewn for GDB
 function! PyclewnCustomMap()
 	map <C-P> :exe "Cprint " . expand("<cword>") <CR>
