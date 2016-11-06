@@ -220,6 +220,7 @@ set ruler
 set cursorline
 
 " Make search more visible
+set smartcase
 set incsearch
 set showmatch
 set hlsearch
