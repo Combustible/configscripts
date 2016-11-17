@@ -123,7 +123,7 @@ cd "$CONFIG_SCRIPTS_DIR/bin"
 #
 if [[ ! -d git-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Git"
-	CONFIG_GITVER=2.6.4
+	CONFIG_GITVER=2.9.3
 	RUN rm -f git-${CONFIG_GITVER}.tar.gz
 	RUN rm -rf git-${CONFIG_GITVER}
 	RUN rm -rf git-compile
@@ -244,15 +244,16 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 #
 if ! python -c 'import pdb' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 pdb-clone"
-	RUN rm -f pdb-clone-1.10.tar.gz
-	SPRUN rm -rf pdb-clone-1.10
-	RUN wget 'https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-1.10.tar.gz'
-	RUN tar xzf pdb-clone-1.10.tar.gz
-	RUN pushd pdb-clone-1.10
+	CONFIG_PDBVER=1.10
+	RUN rm -f pdb-clone-${CONFIG_PDBVER}.tar.gz
+	SPRUN rm -rf pdb-clone-${CONFIG_PDBVER}
+	RUN wget "https://pypi.python.org/packages/source/p/pdb-clone/pdb-clone-${CONFIG_PDBVER}.tar.gz"
+	RUN tar xzf pdb-clone-${CONFIG_PDBVER}.tar.gz
+	RUN pushd pdb-clone-${CONFIG_PDBVER}
 	SPRUN python setup.py install
 	RUN popd
-	RUN rm -f pdb-clone-1.10.tar.gz
-	SPRUN rm -rf pdb-clone-1.10
+	RUN rm -f pdb-clone-${CONFIG_PDBVER}.tar.gz
+	SPRUN rm -rf pdb-clone-${CONFIG_PDBVER}
 fi
 
 
@@ -260,15 +261,16 @@ fi
 ############################# Python2 trollius
 if ! python -c 'import trollius' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 trollius"
-	RUN rm -f trollius-1.0.4.tar.gz
-	SPRUN rm -rf trollius-1.0.4
-	RUN wget 'https://pypi.python.org/packages/source/t/trollius/trollius-1.0.4.tar.gz#md5=3631a464d49d0cbfd30ab2918ef2b783'
-	RUN tar xzf trollius-1.0.4.tar.gz
-	RUN pushd trollius-1.0.4
+	CONFIG_TROLLIUSVER=2.1
+	RUN rm -f trollius-${CONFIG_TROLLIUSVER}.tar.gz
+	SPRUN rm -rf trollius-${CONFIG_TROLLIUSVER}
+	RUN wget "https://pypi.python.org/packages/source/t/trollius/trollius-${CONFIG_TROLLIUSVER}.tar.gz"
+	RUN tar xzf trollius-${CONFIG_TROLLIUSVER}.tar.gz
+	RUN pushd trollius-${CONFIG_TROLLIUSVER}
 	SPRUN python setup.py install
 	RUN popd
-	RUN rm -f trollius-1.0.4.tar.gz
-	SPRUN rm -rf trollius-1.0.4
+	RUN rm -f trollius-${CONFIG_TROLLIUSVER}.tar.gz
+	SPRUN rm -rf trollius-${CONFIG_TROLLIUSVER}
 fi
 
 
@@ -280,15 +282,16 @@ fi
 #
 if ! python -c 'import clewn' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 pyclewn"
+	CONFIG_PYCLEWNVER=2.3
 	RUN rm -f pyclewn-*.tar.gz
 	SPRUN rm -rf pyclewn-*
-	RUN wget 'https://pypi.python.org/packages/source/p/pyclewn/pyclewn-2.2.tar.gz'
-	RUN tar xzf pyclewn-2.2.tar.gz
-	RUN pushd pyclewn-2.2
+	RUN wget "https://pypi.python.org/packages/d0/07/9bbe5f9c79d47e39dd932acad608101d9eac35d3ea09eb275b32e86f8022/pyclewn-${CONFIG_PYCLEWNVER}.tar.gz#md5=3f85e50220a5d03777f45cf5aeac22c0"
+	RUN tar xzf pyclewn-${CONFIG_PYCLEWNVER}.tar.gz
+	RUN pushd pyclewn-${CONFIG_PYCLEWNVER}
 	SPRUN python setup.py install
 	RUN popd
-	RUN rm -f pyclewn-2.2.tar.gz
-	SPRUN rm -rf pyclewn-2.2
+	RUN rm -f pyclewn-${CONFIG_PYCLEWNVER}.tar.gz
+	SPRUN rm -rf pyclewn-${CONFIG_PYCLEWNVER}
 
 	# Test if pyclewn installation was successful
 	RUN python -c "import clewn;"
@@ -307,15 +310,16 @@ fi
 #
 if ! python -c 'import serial' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Python2 pyserial"
-	RUN rm -f pyserial-2.7.tar.gz
-	SPRUN rm -rf pyserial-2.7
-	RUN wget 'https://pypi.python.org/packages/source/p/pyserial/pyserial-2.7.tar.gz#md5=794506184df83ef2290de0d18803dd11'
-	RUN tar xzf pyserial-2.7.tar.gz
-	RUN pushd pyserial-2.7
+	CONFIG_PYSERIALVER=2.7
+	RUN rm -f pyserial-${CONFIG_PYSERIALVER}.tar.gz
+	SPRUN rm -rf pyserial-${CONFIG_PYSERIALVER}
+	RUN wget "https://pypi.python.org/packages/source/p/pyserial/pyserial-${CONFIG_PYSERIALVER}.tar.gz"
+	RUN tar xzf pyserial-${CONFIG_PYSERIALVER}.tar.gz
+	RUN pushd pyserial-${CONFIG_PYSERIALVER}
 	SPRUN python setup.py install
 	RUN popd
-	RUN rm -f pyserial-2.7.tar.gz
-	SPRUN rm -rf pyserial-2.7
+	RUN rm -f pyserial-${CONFIG_PYSERIALVER}.tar.gz
+	SPRUN rm -rf pyserial-${CONFIG_PYSERIALVER}
 fi
 
 
@@ -327,18 +331,19 @@ if [[ ! -d gdb-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 
 	export LDFLAGS="-Wl,-rpath,$CONFIG_SCRIPTS_DIR/bin/python2/lib -L$CONFIG_SCRIPTS_DIR/bin/python2/lib"
 
-	RUN rm -f gdb-7.10.1.tar.gz
-	RUN rm -rf gdb-7.10.1
+	CONFIG_GDBVER=7.12
+	RUN rm -f gdb-${CONFIG_GDBVER}.tar.gz
+	RUN rm -rf gdb-${CONFIG_GDBVER}
 	RUN rm -rf gdb-compile
-	RUN wget 'https://ftp.gnu.org/gnu/gdb/gdb-7.10.1.tar.gz'
-	RUN tar xzf gdb-7.10.1.tar.gz
-	RUN pushd gdb-7.10.1
+	RUN wget "https://ftp.gnu.org/gnu/gdb/gdb-${CONFIG_GDBVER}.tar.gz"
+	RUN tar xzf gdb-${CONFIG_GDBVER}.tar.gz
+	RUN pushd gdb-${CONFIG_GDBVER}
 	RUN ./configure --with-python --prefix="$CONFIG_SCRIPTS_DIR/bin/gdb-compile"
 	RUN make "-j$NUMTHREADS"
 	RUN make install
 	RUN popd
-	RUN rm -f gdb-7.10.1.tar.gz
-	RUN rm -rf gdb-7.10.1
+	RUN rm -f gdb-${CONFIG_GDBVER}.tar.gz
+	RUN rm -rf gdb-${CONFIG_GDBVER}
 fi
 
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
