@@ -229,6 +229,9 @@ set hlsearch
 set wildmenu
 set wildmode=full
 
+" Vertical split windows open on the right instead of the left
+set splitright
+
 " If input is from stdin, assume it hasn't been modified (and thus will not require saving or ! to escape)
 autocmd StdinReadPost * set nomodified
 
@@ -251,6 +254,9 @@ nmap <leader>cc :call Loadcctree()<cr>
 
 " Edit this vimrc file with ,vi
 nmap <leader>vi :tabedit $MYVIMRC<CR>
+
+" YouCompleteMe QuickFix
+nmap <leader>fi :YcmCompleter FixIt<CR>
 
 " Quickfix mappings:
 nmap <leader>co :copen<CR>
