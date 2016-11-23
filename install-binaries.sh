@@ -441,6 +441,27 @@ echo -e "${GOODCOLOR}Install complete!${ENDGOODCOLOR}"
 #----- The following junk still lives here in case I ever need it again ------
 ##############################################################################
 
+###############################################################################
+############################# ZSH
+#if [[ ! -d zsh-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+#	PRINTSTART "ZSH"
+#	RUN rm -f zsh.tar.gz
+#	RUN rm -rf zsh-*
+#	RUN wget -O 'zsh.tar.gz' 'https://sourceforge.net/projects/zsh/files/latest/download'
+#	RUN tar xzf zsh.tar.gz
+#	CONFIG_ZSHVER="$(ls | grep 'zsh-' | head -n 1 | sed -e 's|^zsh-||')"
+#	RUN pushd "zsh-$CONFIG_ZSHVER"
+#	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/zsh-compile"
+#	RUN make "-j$NUMTHREADS"
+#	RUN make install
+#	RUN popd
+#	RUN rm -f zsh.tar.gz
+#	RUN rm -rf "zsh-$CONFIG_ZSHVER"
+#fi
+#
+#export PATH="$CONFIG_SCRIPTS_DIR/bin/zsh-compile/bin:$PATH"
+
+
 # yum install glibc-devel.i686
 #tar xzf gcc-4.6.2.tar.gz
 #pushd gcc-4.6.2

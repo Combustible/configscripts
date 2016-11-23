@@ -4,6 +4,7 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/git-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/cscope-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
+export PATH="$CONFIG_SCRIPTS_DIR/bin/zsh-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 
