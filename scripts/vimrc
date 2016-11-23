@@ -63,6 +63,11 @@ NeoBundle 'ConradIrwin/vim-bracketed-paste'
 " AnsiEsc - Lets you load files with ANSI color codes embedded in them
 NeoBundle 'powerman/vim-plugin-AnsiEsc'
 
+" Note Taking Tools
+NeoBundle 'vimwiki/vimwiki'
+NeoBundle 'fmoralesc/vim-pad'
+NeoBundle 'vim-scripts/utl.vim'
+
 "NeoBundle 'Shougo/neosnippet.vim'
 "NeoBundle 'Shougo/neosnippet-snippets'
 ""NeoBundle 'flazz/vim-colorschemes'
@@ -220,10 +225,13 @@ set ruler
 set cursorline
 
 " Make search more visible
-set smartcase
 set incsearch
 set showmatch
 set hlsearch
+
+" Case insensitive unless something is uppercase
+set ignorecase
+set smartcase
 
 " ZSH style autocompletion via tab
 set wildmenu
@@ -308,4 +316,6 @@ cmap w!! w !sudo tee > /dev/null %
 " Rebuild PlantUML with ,ml
 " let g:plantuml_executable_script='java -jar /path/to/plantuml.jar -tsvg'
 " nmap <leader>ml :w<CR> :silent make<CR>
+
+let g:pad#dir = '~/vimwiki'
 

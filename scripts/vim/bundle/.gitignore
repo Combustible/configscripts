@@ -15,3 +15,6 @@ vim-textobj-entire
 ctrlp.vim
 vim-bracketed-paste
 vim-plugin-AnsiEsc
+utl.vim
+vim-pad
+vimwiki
