@@ -34,6 +34,10 @@ make_link "$HOME/.vim" "scripts/vim"
 make_link "$HOME/.gdbinit" "scripts/gdbinit"
 make_link "$HOME/.pyclewn_keys.gdb" "scripts/pyclewn_keys.gdb"
 
+echo
+echo "*** If you want to install oh-my-zsh, run the following command ***"
+echo "git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh"
+echo
 
 # Check gitconfig
 if [[ ! -e "$HOME/.gitconfig" ]]; then
