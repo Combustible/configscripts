@@ -280,29 +280,31 @@ fi
 # http://pyclewn.sourceforge.net/install.html
 # https://pypi.python.org/pypi/pyclewn
 #
-if ! python -c 'import clewn' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
-	PRINTSTART "Python2 pyclewn"
-	CONFIG_PYCLEWNVER=2.3
-	RUN rm -f pyclewn-*.tar.gz
-	SPRUN rm -rf pyclewn-*
-	RUN wget "https://pypi.python.org/packages/d0/07/9bbe5f9c79d47e39dd932acad608101d9eac35d3ea09eb275b32e86f8022/pyclewn-${CONFIG_PYCLEWNVER}.tar.gz#md5=3f85e50220a5d03777f45cf5aeac22c0"
-	RUN tar xzf pyclewn-${CONFIG_PYCLEWNVER}.tar.gz
-	RUN pushd pyclewn-${CONFIG_PYCLEWNVER}
-	SPRUN python setup.py install
-	RUN popd
-	RUN rm -f pyclewn-${CONFIG_PYCLEWNVER}.tar.gz
-	SPRUN rm -rf pyclewn-${CONFIG_PYCLEWNVER}
-
-	# Test if pyclewn installation was successful
-	RUN python -c "import clewn;"
-
-	# Install the pyclewn vimball
-	RUN pushd /tmp
-	PYCLEWN_VIMBALL="$(python -c "import clewn; clewn.get_vimball()" | cut -d ' ' -f '3-')"
-	RUN test -e "$PYCLEWN_VIMBALL"
-	RUN vim -S "$PYCLEWN_VIMBALL" +qall
-	RUN popd
-fi
+# Pyclewn seems to be abandoned, need to figure out what to do instead
+#
+#if ! python -c 'import clewn' 2>/dev/null || [[ "$REINSTALL " == "TRUE " ]]; then
+#	PRINTSTART "Python2 pyclewn"
+#	CONFIG_PYCLEWNVER=2.3
+#	RUN rm -f pyclewn-*.tar.gz
+#	SPRUN rm -rf pyclewn-*
+#	RUN wget "https://pypi.python.org/packages/d0/07/9bbe5f9c79d47e39dd932acad608101d9eac35d3ea09eb275b32e86f8022/pyclewn-${CONFIG_PYCLEWNVER}.tar.gz#md5=3f85e50220a5d03777f45cf5aeac22c0"
+#	RUN tar xzf pyclewn-${CONFIG_PYCLEWNVER}.tar.gz
+#	RUN pushd pyclewn-${CONFIG_PYCLEWNVER}
+#	SPRUN python setup.py install
+#	RUN popd
+#	RUN rm -f pyclewn-${CONFIG_PYCLEWNVER}.tar.gz
+#	SPRUN rm -rf pyclewn-${CONFIG_PYCLEWNVER}
+#
+#	# Test if pyclewn installation was successful
+#	RUN python -c "import clewn;"
+#
+#	# Install the pyclewn vimball
+#	RUN pushd /tmp
+#	PYCLEWN_VIMBALL="$(python -c "import clewn; clewn.get_vimball()" | cut -d ' ' -f '3-')"
+#	RUN test -e "$PYCLEWN_VIMBALL"
+#	RUN vim -S "$PYCLEWN_VIMBALL" +qall
+#	RUN popd
+#fi
 
 
 ###############################################################################
