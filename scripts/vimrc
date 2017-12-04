@@ -68,6 +68,9 @@ NeoBundle 'vimwiki/vimwiki'
 NeoBundle 'fmoralesc/vim-pad'
 NeoBundle 'vim-scripts/utl.vim'
 
+" Java autocomplete
+NeoBundle 'artur-shaik/vim-javacomplete2'
+
 "NeoBundle 'Shougo/neosnippet.vim'
 "NeoBundle 'Shougo/neosnippet-snippets'
 ""NeoBundle 'flazz/vim-colorschemes'
@@ -156,10 +159,10 @@ function! Astyleallman()
 	set noautoread
 endfunction
 
-" For C and C++ files, set the gq autoformat command to use astyle
-" Command below produces Linux kernel style code
+" Set the gq autoformat command to use astyle
+" For C/C++ use Linux kernel style code
 autocmd Filetype c,cpp set formatprg=astyle\ --style=linux\ --indent=tab=8\ --convert-tabs\ --indent-preprocessor\ --min-conditional-indent=3\ --max-instatement-indent=60\ --pad-oper\ --unpad-paren\ --pad-header\ --align-pointer=name\ --indent-namespaces\ --max-code-length=100
-
+autocmd Filetype java set formatprg=astyle\ --style=java\ --indent=tab=4\ --convert-tabs\ --min-conditional-indent=3\ --max-instatement-indent=60\ --pad-oper\ --unpad-paren\ --pad-header\ --indent-namespaces\ --max-code-length=100\ --add-brackets
 
 
 function! TabsOn()
@@ -198,6 +201,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " Show commands triggered by macros/leader shortcuts
 set showcmd
+
+" Don't wrap long lines
+set nowrap
 
 " Use UTF-8 encoding
 set encoding=utf-8
@@ -318,4 +324,7 @@ cmap w!! w !sudo tee > /dev/null %
 " nmap <leader>ml :w<CR> :silent make<CR>
 
 let g:pad#dir = '~/vimwiki'
+let g:vimwiki_conceallevel = 0
 
+" Java autocomplete
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
