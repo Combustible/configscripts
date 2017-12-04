@@ -97,6 +97,7 @@ alias winecfg32='WINEARCH=win32 WINEPREFIX=~/.wine32 winecfg'
 alias winetricks32='WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks'
 alias astylelinux='astyle --style=linux --indent=tab=8 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --max-code-length=100'
 alias astyleallman='astyle --style=allman --indent=tab=4 --convert-tabs --indent-preprocessor --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --align-pointer=name --indent-namespaces --max-code-length=100'
+alias astylejava='astyle --style=java --indent=tab=4 --convert-tabs --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --indent-namespaces --max-code-length=100 --add-brackets'
 alias scite='SciTE'
 unset SSH_ASKPASS
 
