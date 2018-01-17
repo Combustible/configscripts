@@ -123,7 +123,7 @@ cd "$CONFIG_SCRIPTS_DIR/bin"
 #
 if [[ ! -d git-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	PRINTSTART "Git"
-	CONFIG_GITVER=2.9.3
+	CONFIG_GITVER=2.9.5
 	RUN rm -f git-${CONFIG_GITVER}.tar.gz
 	RUN rm -rf git-${CONFIG_GITVER}
 	RUN rm -rf git-compile
@@ -134,8 +134,9 @@ if [[ ! -d git-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 	RUN ./configure --prefix="$CONFIG_SCRIPTS_DIR/bin/git-compile"
 	RUN make all "-j$NUMTHREADS"
 	RUN make doc "-j$NUMTHREADS"
-	RUN make info "-j$NUMTHREADS"
-	RUN make install install-doc install-html install-info
+	#RUN make info "-j$NUMTHREADS"
+	#RUN make install install-doc install-html install-info
+	RUN make install install-doc install-html
 	RUN popd
 	RUN rm -f git-${CONFIG_GITVER}.tar.gz
 	RUN rm -rf git-${CONFIG_GITVER}
@@ -333,7 +334,7 @@ if [[ ! -d gdb-compile ]] || [[ "$REINSTALL " == "TRUE " ]]; then
 
 	export LDFLAGS="-Wl,-rpath,$CONFIG_SCRIPTS_DIR/bin/python2/lib -L$CONFIG_SCRIPTS_DIR/bin/python2/lib"
 
-	CONFIG_GDBVER=7.12
+	CONFIG_GDBVER=8.0.1
 	RUN rm -f gdb-${CONFIG_GDBVER}.tar.gz
 	RUN rm -rf gdb-${CONFIG_GDBVER}
 	RUN rm -rf gdb-compile
