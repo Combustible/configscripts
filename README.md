@@ -25,21 +25,12 @@ git clone https://github.com/Combustible/configscripts.git
 ### Install required packages:
 #### Ubuntu:
 ```sh
-apt-get install libcurl4-openssl-dev libexpat1-dev gettext libz-dev libssl-dev asciidoc xmlto docbook2x autoconf python-dev libncurses5-dev libatk1.0-dev cmake ctags g++
+apt-get install python-dev cmake ctags g++
 ```
-
 
 #### CentOS / Fedora:
 ```sh
-yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc xmlto docbook2X autoconf gcc perl-devel gcc-c++ python-devel ncurses-devel clang cmake libstdc++-static ctags
-ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
-```
-
-Additionally, if using CentOS6 this might be required:
-```sh
-pushd /usr/lib64
-ln -s libedit.so.0 libedit.so.2
-popd
+yum install gcc gcc-c++ python-devel ncurses-devel clang cmake ctags
 ```
 
 ### Install scripts
@@ -61,9 +52,9 @@ cd $HOME/configscripts
 
 This will download and compile several programs from source under $HOME/configscripts/bin. Look at the script, it's pretty well documented.
 
-When the script first runs, it will ask you if you want to use the built-in system python. If you say yes, it'll install some python modules needed for Pyclewn (GDB Debugging within Vim) into the system python directory. This will require root access, so it'll automatically try to use sudo to install these modules. You'll get to see exactly what command the script is trying to run before you have to enter your sudo passphrase.
+This used to manually compile a bunch of packages in your home directory (git, gdb, even python2). It doesn't anymore because new enough versions of most packages tend to exist on the systems I use to develop these days. As of this writing, only cscope, Vim, and Astyle are compiled (plus loading/compiling vim plugins themselves).
 
-If you don't want to install to the system, don't want to use sudo, or don't have root access, choose "no". The script will attempt to download and compile Python into $HOME/configscripts/bin. This may work, but I usually don't use this configuration so it isn't nearly as well tested.
+This script no longer uses sudo in any capacity.
 
 If at any point something goes wrong in the installation, your best bet is to read the error message and the install-binaries.sh script for clues. If you can't figure it out, feel free to email/message me about it.
 
