@@ -7,6 +7,7 @@ export PATH="$CONFIG_SCRIPTS_DIR/bin/gdb-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin/zsh-compile/bin:$PATH"
 export PATH="$CONFIG_SCRIPTS_DIR/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
+export LESS=FRSX
 
 if [[ -d "$CONFIG_SCRIPTS_DIR/bin/python3" ]]; then
 	export PATH="$CONFIG_SCRIPTS_DIR/bin/python3/bin:$PATH"
