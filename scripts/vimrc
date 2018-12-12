@@ -323,6 +323,11 @@ cmap w!! w !sudo tee > /dev/null %
 " let g:plantuml_executable_script='java -jar /path/to/plantuml.jar -tsvg'
 " nmap <leader>ml :w<CR> :silent make<CR>
 
+" Use markdown syntax highlighting for wiki
+let wiki_1 = {}
+let wiki_1.syntax = 'markdown'
+let g:vimwiki_list = [wiki_1]
+
 let g:pad#dir = '~/vimwiki'
 let g:vimwiki_conceallevel = 0
 
