@@ -123,12 +123,13 @@ fi
 export PATH="$CONFIG_SCRIPTS_DIR/bin/vim-compile/bin:$PATH"
 
 ###############################################################################
-############################# Vim Neobundle
-if [[ ! -d "$HOME/.vim/bundle/neobundle.vim" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+############################# Vim Dein (NeoBundle / Vundle replacement)
+if [[ ! -d "$CONFIG_SCRIPTS_DIR/bin/repos/github.com/Shougo/dein.vim" ]] || [[ "$REINSTALL " == "TRUE " ]]; then
+
 	PRINTSTART "Vim Neobundle"
-	rm -rf "$HOME/.vim/bundle/neobundle.vim"
-	RUN git clone 'https://github.com/Shougo/neobundle.vim.git' "$HOME/.vim/bundle/neobundle.vim"
-	vim +NeoBundleInstall +qall
+	rm -rf "$CONFIG_SCRIPTS_DIR/scripts/vim/bundle/dein.vim"
+	RUN git clone 'https://github.com/Shougo/dein.vim' "$CONFIG_SCRIPTS_DIR/scripts/vim/bundle/dein.vim"
+	vim +'call dein#install()'
 fi
 
 ###############################################################################

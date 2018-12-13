@@ -1,96 +1,88 @@
 
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
-
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+"--------------------------------------------------------------------------------
+"dein (plugin manager) Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-"""""""""""""" Begin Neobundle plugins
-
-" 5 minute install timeout for bundles
-let g:neobundle#install_process_timeout = 1500
-
-" YouCompleteMe config file autogenerator
-NeoBundle 'rdnetto/YCM-Generator'
-
-" Easy find/replace
-NeoBundle 'dkprice/vim-easygrep'
-
-" Call graphs using cscope
-NeoBundle 'hari-rangarajan/CCTree'
-
-" File system browser
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'Xuyuanp/nerdtree-git-plugin'
-
-" Git tools inside vim
-NeoBundle 'tpope/vim-fugitive'
-
-" Autocompletion for many file types
-NeoBundle 'Valloric/YouCompleteMe', {
-     \ 'build'      : {
-        \ 'unix'    : './install.py --clang-completer',
-        \ }
-     \ }
-
-" Local .vimrc files for projects
-NeoBundle 'MarcWeber/vim-addon-local-vimrc'
-
-" Easy commenting / uncommenting with gc
-NeoBundle 'tpope/vim-commentary'
-
-" Adds ae and ie motions to operate on the entire file
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'kana/vim-textobj-entire'
-
-" Adds fuzzy file searching
-NeoBundle 'ctrlpvim/ctrlp.vim'
-
-" Automatic paste mode
-NeoBundle 'ConradIrwin/vim-bracketed-paste'
-
-" AnsiEsc - Lets you load files with ANSI color codes embedded in them
-NeoBundle 'powerman/vim-plugin-AnsiEsc'
-
-" Note Taking Tools
-NeoBundle 'vimwiki/vimwiki'
-NeoBundle 'fmoralesc/vim-pad'
-NeoBundle 'vim-scripts/utl.vim'
-
-" Java autocomplete
-NeoBundle 'artur-shaik/vim-javacomplete2'
-
-"NeoBundle 'Shougo/neosnippet.vim'
-"NeoBundle 'Shougo/neosnippet-snippets'
-""NeoBundle 'flazz/vim-colorschemes'
-
-" You can specify revision/branch/tag.
-"NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-""""""""""""" End Bundles
+set runtimepath+=~/.vim/bundle/dein.vim
 
 " Required:
-call neobundle#end()
+if dein#load_state('~/.vim/bundle/dein.vim/state')
+	call dein#begin('~/.vim/bundle/dein.vim/state')
+
+	" Let dein manage dein
+	" Required:
+	call dein#add('~/.vim/bundle/dein.vim')
+
+	" 5 minute install timeout for bundles
+	let g:dein#install_process_timeout = 1500
+
+	" Add or remove your plugins here like this:
+	"call dein#add('Shougo/neosnippet.vim')
+	"call dein#add('Shougo/neosnippet-snippets')
+	" YouCompleteMe config file autogenerator
+	call dein#add('rdnetto/YCM-Generator')
+
+	" Easy find/replace
+	call dein#add('dkprice/vim-easygrep')
+
+	" Call graphs using cscope
+	call dein#add('hari-rangarajan/CCTree')
+
+	" File system browser
+	call dein#add('scrooloose/nerdtree')
+	call dein#add('Xuyuanp/nerdtree-git-plugin')
+
+	" Git tools inside vim
+	call dein#add('tpope/vim-fugitive')
+
+	" Autocompletion for many file types
+	call dein#add('Valloric/YouCompleteMe', {
+	\ 'build':
+	\   './install.py --clang-completer'
+	\ })
+
+	" Local .vimrc files for projects
+	call dein#add('MarcWeber/vim-addon-local-vimrc')
+
+	" Easy commenting / uncommenting with gc
+	call dein#add('tpope/vim-commentary')
+
+	" Adds ae and ie motions to operate on the entire file
+	call dein#add('kana/vim-textobj-user')
+	call dein#add('kana/vim-textobj-entire')
+
+	" Adds fuzzy file searching
+	call dein#add('ctrlpvim/ctrlp.vim')
+
+	" Automatic paste mode
+	call dein#add('ConradIrwin/vim-bracketed-paste')
+
+	" AnsiEsc - Lets you load files with ANSI color codes embedded in them
+	call dein#add('powerman/vim-plugin-AnsiEsc')
+
+	" Note Taking Tools
+	call dein#add('vimwiki/vimwiki')
+	call dein#add('fmoralesc/vim-pad')
+	call dein#add('vim-scripts/utl.vim')
+
+	" Required:
+	call dein#end()
+	call dein#save_state()
+endif
 
 " Required:
 filetype plugin indent on
+syntax enable
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
 
+"End dein Scripts-------------------------
 
 if has('cscope')
 	set cscopetag cscopeverbose
@@ -99,12 +91,12 @@ if has('cscope')
 		" set cscopequickfix=s-,c-,d-,i-,t-,e-
 	endif
 
-"cnoreabbrev csa cs add
-"cnoreabbrev csf cs find
-"cnoreabbrev csk cs kill
-"cnoreabbrev csr cs reset
-"cnoreabbrev css cs show
-"cnoreabbrev csh cs help
+	"cnoreabbrev csa cs add
+	"cnoreabbrev csf cs find
+	"cnoreabbrev csk cs kill
+	"cnoreabbrev csr cs reset
+	"cnoreabbrev css cs show
+	"cnoreabbrev csh cs help
 
 	function! LoadCscope()
 		let l:dbcount=1
