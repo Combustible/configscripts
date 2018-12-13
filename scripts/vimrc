@@ -68,6 +68,9 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	call dein#add('fmoralesc/vim-pad')
 	call dein#add('vim-scripts/utl.vim')
 
+	" Eclim (eclipse) integration if present
+	call dein#local('~/.vim/bundle', {}, ['eclim'])
+
 	" Required:
 	call dein#end()
 	call dein#save_state()
