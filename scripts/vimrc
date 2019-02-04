@@ -68,6 +68,11 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	call dein#add('fmoralesc/vim-pad')
 	call dein#add('vim-scripts/utl.vim')
 
+	" Java Unused Imports
+	" NeoBundle 'akhaku/vim-java-unused-imports'
+	" Java Import Manager
+	" NeoBundle 'vim-scripts/JavaImp.vim--Lee'
+
 	" Eclim (eclipse) integration if present
 	call dein#local('~/.vim/bundle', {}, ['eclim'])
 
@@ -157,7 +162,7 @@ endfunction
 " Set the gq autoformat command to use astyle
 " For C/C++ use Linux kernel style code
 autocmd Filetype c,cpp set formatprg=astyle\ --style=linux\ --indent=tab=8\ --convert-tabs\ --indent-preprocessor\ --min-conditional-indent=3\ --max-instatement-indent=60\ --pad-oper\ --unpad-paren\ --pad-header\ --align-pointer=name\ --indent-namespaces\ --max-code-length=100
-autocmd Filetype java set formatprg=astyle\ --style=java\ --indent=tab=4\ --convert-tabs\ --min-conditional-indent=3\ --max-instatement-indent=60\ --pad-oper\ --unpad-paren\ --pad-header\ --indent-namespaces\ --max-code-length=100\ --add-brackets
+autocmd Filetype java set formatprg=astyle\ --style=java\ --indent=tab=4\ --convert-tabs\ --min-conditional-indent=3\ --max-instatement-indent=60\ --pad-oper\ --unpad-paren\ --pad-header\ --indent-namespaces\ --add-brackets
 
 
 function! TabsOn()
@@ -273,8 +278,14 @@ nmap <leader>cq :cclose<CR>
 nmap <leader>cn :cn<CR>
 nmap <leader>cp :cp<CR>
 
+" Next buffer shortcut
+nmap <leader>nn :bnext<CR>
+
 " Disable highlighting:
 nmap <leader>hl :nohls<CR>
+
+" JavaImportOrganize with ,ji
+nmap <leader>ji :JavaImportOrganize<CR>
 
 " Source the vimrc file after saving it
 if has("autocmd")
@@ -326,5 +337,6 @@ let g:vimwiki_list = [wiki_1]
 let g:pad#dir = '~/vimwiki'
 let g:vimwiki_conceallevel = 0
 
-" Java autocomplete
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" Java autocomplete with eclim
+let g:EclimCompletionMethod = 'omnifunc'
+
