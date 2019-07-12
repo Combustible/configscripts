@@ -252,7 +252,7 @@ autocmd StdinReadPost * set nomodified
 " Fix weird NERDTree characters
 let g:NERDTreeDirArrows=0
 
-" Open Ctrl-P with ,p since control+p is used by pyclewn
+" Open Ctrl-P with ,p 
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 
@@ -312,15 +312,6 @@ imap <c-s> <Esc>:w<CR>a
 
 " Disable Q starting Ex mode
 nnoremap Q <nop>
-
-" Remap control+P and control+X to work better with Pyclewn for GDB
-function! PyclewnCustomMap()
-	map <C-P> :exe "Cprint " . expand("<cword>") <CR>
-	vnoremap <C-P> y:Cprint <C-R><C-R>"<C-R><C-R><CR><CR>
-	map <C-X> :exe "Cprint *" . expand("<cword>") <CR>
-	vnoremap <C-X> y:Cprint *<C-R><C-R>"<C-R><C-R><CR><CR>
-endfunction
-autocmd Filetype c,cpp call PyclewnCustomMap()
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %

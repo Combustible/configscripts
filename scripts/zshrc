@@ -106,11 +106,6 @@ stty ixoff -ixon
 # No more vi for you
 alias vi=vim
 
-# Launches vim with a Pyclewn GDB debugging session. Arguments are the program to launch
-vimdebug() (
-	vim -c "Pyclewn gdb --args $@" -c "Cmapkeys" -c "Cstart"
-)
-
 # Strips trailing whitespace errors from the files specified as arguments
 fixwhitespace() {
 	for file in "$@"; do
