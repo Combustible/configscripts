@@ -63,6 +63,12 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	" AnsiEsc - Lets you load files with ANSI color codes embedded in them
 	call dein#add('powerman/vim-plugin-AnsiEsc')
 
+	" Semantically aware color coding
+	call dein#add('jeaye/color_coded', {
+	\ 'build':
+	\   'cmake . && make -j8 && make install'
+	\ })
+
 	" Note Taking Tools
 	call dein#add('vimwiki/vimwiki')
 	call dein#add('fmoralesc/vim-pad')
@@ -73,7 +79,7 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	" Java Import Manager
 	" NeoBundle 'vim-scripts/JavaImp.vim--Lee'
 
-	" Eclim (eclipse) integration 
+	" Eclim (eclipse) integration
 	call dein#add('dansomething/vim-eclim')
 
 	" Required:
@@ -252,7 +258,7 @@ autocmd StdinReadPost * set nomodified
 " Fix weird NERDTree characters
 let g:NERDTreeDirArrows=0
 
-" Open Ctrl-P with ,p 
+" Open Ctrl-P with ,p
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 
@@ -306,6 +312,11 @@ if &t_Co > 2 || has("gui_running")
   syntax on
 endif
 
+" Disable color_coded in diff mode
+if &diff
+  let g:color_coded_enabled = 0
+endif
+
 " Control + S saves current file
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
@@ -331,3 +342,15 @@ let g:vimwiki_conceallevel = 0
 " Java autocomplete with eclim
 let g:EclimCompletionMethod = 'omnifunc'
 
+" Adjust highlighting to better utilize color_coded
+exe 'hi Function ctermfg=white'
+exe 'hi Type ctermfg=lightgreen'
+exe 'hi Number ctermfg=red'
+exe 'hi Macro ctermfg=blue'
+exe 'hi PreProc ctermfg=brown'
+exe 'hi Comment ctermfg=cyan'
+exe 'hi TODO ctermfg=black ctermbg=red'
+exe 'hi Member ctermfg=gray'
+exe 'hi Variable ctermfg=gray'
+exe 'hi Namespace ctermfg=gray'
+exe 'hi EnumConstant ctermfg=blue'

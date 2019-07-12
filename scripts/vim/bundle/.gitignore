@@ -10,6 +10,7 @@ vim-addon-local-vimrc
 vim-commentary
 vim-textobj-user
 vim-textobj-entire
+color_coded
 ctrlp.vim
 vim-bracketed-paste
 vim-plugin-AnsiEsc
