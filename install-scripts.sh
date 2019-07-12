@@ -27,37 +27,46 @@ make_link() (
 )
 
 # Create links for config scripts to default locations
-make_link "$HOME/.commonrc" "scripts/commonrc"
 make_link "$HOME/.zshrc" "scripts/zshrc"
 make_link "$HOME/.vimrc" "scripts/vimrc"
 make_link "$HOME/.vim" "scripts/vim"
 make_link "$HOME/.gdbinit" "scripts/gdbinit"
-make_link "$HOME/.pyclewn_keys.gdb" "scripts/pyclewn_keys.gdb"
 
 echo
 echo "*** If you want to install oh-my-zsh, run the following command ***"
 echo "git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh"
 echo
 
-# Check gitconfig
+# Check gitconfig: 
+#    Load name and email from environment variables if present, 
+#    otherwise read them in if not set in gitconfig
 if [[ ! -e "$HOME/.gitconfig" ]]; then
 	# Only way this has any effect is if .gitconfig is a broken symlink
 	rm -f "$HOME/.gitconfig"
 fi
-git config --global user.name > /dev/null
-if [[ $? -ne 0 ]]; then
-	echo "Git user.name not found! Enter your user.name to be placed in $HOME/.gitconfig"
-	echo -n "> "
-	read username;
-	git config --global user.name "$username"
+if [[ -z "$GIT_NAME" ]]; then
+	git config --global user.name > /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "Git user.name not found! Enter your user.name to be placed in $HOME/.gitconfig"
+		echo -n "> "
+		read GIT_NAME
+		git config --global user.name "$GIT_NAME"
+	fi
+else
+	git config --global user.name "$GIT_NAME"
 fi
-git config --global user.email > /dev/null
-if [[ $? -ne 0 ]]; then
-	echo "Git user.email not found! Enter your user.email to be placed in $HOME/.gitconfig"
-	echo -n "> "
-	read useremail;
-	git config --global user.email "$useremail"
+if [[ -z "$GIT_EMAIL" ]]; then
+	git config --global user.email > /dev/null
+	if [[ $? -ne 0 ]]; then
+		echo "Git user.email not found! Enter your user.email to be placed in $HOME/.gitconfig"
+		echo -n "> "
+		read GIT_EMAIL
+		git config --global user.email "$GIT_EMAIL"
+	fi
+else
+	git config --global user.email "$GIT_EMAIL"
 fi
+
 if ! cat "$HOME/.gitconfig" | grep -q "path = $SCRIPT_DIR/scripts/gitconfig"; then
 	cat <<EOF >> "$HOME/.gitconfig"
 
@@ -72,7 +81,6 @@ fi
 
 # Check login shell
 if ! getent passwd | grep "^$USER" | grep -q 'zsh' ; then
-	echo "Warning! Login shell is not ZSH. You must manually add this text to your $HOME/.bashrc (or similar)"
-	echo '    source "$HOME/.commonrc"'
+	echo "Warning! Login shell is not ZSH!"
 fi
 

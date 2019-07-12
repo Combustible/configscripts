@@ -73,8 +73,8 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	" Java Import Manager
 	" NeoBundle 'vim-scripts/JavaImp.vim--Lee'
 
-	" Eclim (eclipse) integration if present
-	call dein#local('~/.vim/bundle', {}, ['eclim'])
+	" Eclim (eclipse) integration 
+	call dein#add('dansomething/vim-eclim')
 
 	" Required:
 	call dein#end()
