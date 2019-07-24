@@ -93,11 +93,11 @@ alias astylelinux='astyle --style=linux --indent=tab=8 --convert-tabs --indent-p
 alias astylejava='astyle --style=java --indent=tab=4 --convert-tabs --min-conditional-indent=3 --max-instatement-indent=40 --pad-oper --unpad-paren --pad-header --indent-namespaces --max-code-length=100 --add-brackets'
 unset SSH_ASKPASS
 
+export PATH="$HOME/bin:$PATH"
+
 if [[ -e "$HOME/.localrc" ]]; then
 	source "$HOME/.localrc"
 fi
-
-export PATH="$HOME/bin:$PATH"
 
 # No more awful control-s freeze
 stty ixany

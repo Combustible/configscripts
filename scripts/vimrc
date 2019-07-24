@@ -39,10 +39,7 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	call dein#add('tpope/vim-fugitive')
 
 	" Autocompletion for many file types
-	call dein#add('Valloric/YouCompleteMe', {
-	\ 'build':
-	\   './install.py --clang-completer'
-	\ })
+	call dein#add('Valloric/YouCompleteMe', { 'build': './install.py --clang-completer' })
 
 	" Local .vimrc files for projects
 	call dein#add('MarcWeber/vim-addon-local-vimrc')
@@ -64,10 +61,7 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	call dein#add('powerman/vim-plugin-AnsiEsc')
 
 	" Semantically aware color coding
-	call dein#add('jeaye/color_coded', {
-	\ 'build':
-	\   'cmake . && make -j8 && make install'
-	\ })
+	call dein#add('jeaye/color_coded', { 'build': 'cmake . && make -j8 && make install' })
 
 	" Note Taking Tools
 	call dein#add('vimwiki/vimwiki')
