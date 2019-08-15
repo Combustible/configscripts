@@ -26,7 +26,7 @@ RUN groupadd --non-unique -g $GID $USERNAME && \
 	useradd -lmNs /usr/bin/zsh -u $UID -g $GID $USERNAME && \
 	usermod -a -G docker $USERNAME && \
 	mkdir /root/.ssh $USERHOME/.ssh && \
-	echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDidsslbXU9IjUHhZhJvhK7kzxc/F2l74+Ptv05k3NhD9JOvEu+ACN9cztddt1Gp4v5ZKjoqdP34u62pfLyDf8/edPdZpwr5RSv8cE0T8bTKVmD3a/XjpO6Y2CytVhrtg15ICvVADZ7eW/zvS4/3A7MVR+nPAqFIxzW0SrrcYgER1jTlpvSD4EIZS102FfJggV6bjrPlViNE8RAwPtbJh0E8yOiJIgITXb+gDnjTSEar6h+0oMI61fW0xxtO0BY/8wQvv+RoHxzsctHS14GN2/XzoEXUTvv9WA4Comyq0EHkOXUcK4sBy1atqk7pTN0o2VnhspUHdv6SHhKIjwz6cMuBySJVykTPlWUdrEpcAjFofQC/YcK9Q1B1riQg5fYu92HJhDrwYWehQzLs9UWqPR8h6oomaP0ie3YHbiS4tWpFHT2fSUQ/8f+TdIwuIQULfRtJisFA7uqCECFkEwQLz8/Bgbdh4OqPy5xM47cJZWBE3fF4VQfXNNpujpbOt/aGoXO4IdvdOQPQ1+wSeWVvQJ7l63qOz4gtfz7Xlw8xOAQgcvP43RCMQRdwDPtvwnPZH6yH1X6hElUtFugzb5DCZXXzwsfhy/QhEkmGvkeP8NIUQDHgyDb7LWqe09o3ko8BsrsiifEBxv+XkDOHdMdmcZK0W2BHWOc35wKbm7IMuc7HQ== 8f:b8:18:43:03:4e:a5:42:5b:ce:95:2d:bc:1a:a1:86 Byron Marohn Personal Key 2016' > /root/.ssh/authorized_keys && \
+	echo '$SSH_KEY' > /root/.ssh/authorized_keys && \
 	cp /root/.ssh/authorized_keys $USERHOME/.ssh/authorized_keys && \
 	chown -R root:root /root/.ssh && \
 	chown -R $USERNAME:$USERNAME $USERHOME/.ssh && \
