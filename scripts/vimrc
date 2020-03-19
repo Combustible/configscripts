@@ -60,9 +60,6 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	" AnsiEsc - Lets you load files with ANSI color codes embedded in them
 	call dein#add('powerman/vim-plugin-AnsiEsc')
 
-	" Semantically aware color coding
-	call dein#add('jeaye/color_coded', { 'build': 'cmake . && make -j8 && make install' })
-
 	" Note Taking Tools
 	call dein#add('vimwiki/vimwiki')
 	call dein#add('fmoralesc/vim-pad')
