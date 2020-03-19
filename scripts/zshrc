@@ -57,6 +57,8 @@ bindkey "\033[4~" end-of-line
 
 ################################## User configuration #################################
 
+source $HOME/.cargo/env
+
 export EDITOR='vim'
 
 # Lines configured by zsh-newuser-install

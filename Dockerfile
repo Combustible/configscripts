@@ -41,6 +41,13 @@ COPY . $USERHOME/configscripts
 RUN chown -R $USERNAME:$USERNAME $USERHOME/configscripts && mkdir $USERHOME/home
 
 USER $USERNAME
+
+RUN curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o rustup.sh && \
+	chmod +x rustup.sh && \
+	./rustup.sh -y && \
+	. $USERHOME/.cargo/env && \
+	rustup component add rls rust-analysis rust-src
+
 WORKDIR $USERHOME/configscripts
 RUN ./install-scripts.sh && \
 	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
