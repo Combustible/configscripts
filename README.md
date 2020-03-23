@@ -44,8 +44,25 @@ Building requires collecting the following variables:
 
 Example command:
 ```
-docker build . -t byron_dev --build-arg USERNAME=bmarohn --build-arg GIT_NAME="Byron Marohn" --build-arg GIT_EMAIL=pleasedontemailme@seriously.com --build-arg UID=1000 --build-arg GID=1000 --build-arg DOCKER_GID=999 --build-arg SSH_KEY='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDidsslbXU9IjUHhZhJvhK7kzxc/F2l74+Ptv05k3NhD9JOvEu+ACN9cztddt1Gp4v5ZKjoqdP34u62pfLyDf8/edPdZpwr5RSv8cE0T8bTKVmD3a/XjpO6Y2CytVhrtg15ICvVADZ7eW/zvS4/3A7MVR+nPAqFIxzW0SrrcYgER1jTlpvSD4EIZS102FfJggV6bjrPlViNE8RAwPtbJh0E8yOiJIgITXb+gDnjTSEar6h+0oMI61fW0xxtO0BY/8wQvv+RoHxzsctHS14GN2/XzoEXUTvv9WA4Comyq0EHkOXUcK4sBy1atqk7pTN0o2VnhspUHdv6SHhKIjwz6cMuBySJVykTPlWUdrEpcAjFofQC/YcK9Q1B1riQg5fYu92HJhDrwYWehQzLs9UWqPR8h6oomaP0ie3YHbiS4tWpFHT2fSUQ/8f+TdIwuIQULfRtJisFA7uqCECFkEwQLz8/Bgbdh4OqPy5xM47cJZWBE3fF4VQfXNNpujpbOt/aGoXO4IdvdOQPQ1+wSeWVvQJ7l63qOz4gtfz7Xlw8xOAQgcvP43RCMQRdwDPtvwnPZH6yH1X6hElUtFugzb5DCZXXzwsfhy/QhEkmGvkeP8NIUQDHgyDb7LWqe09o3ko8BsrsiifEBxv+XkDOHdMdmcZK0W2BHWOc35wKbm7IMuc7HQ== 8f:b8:18:43:03:4e:a5:42:5b:ce:95:2d:bc:1a:a1:86 Byron Marohn Personal Key 2016'
+docker build . -t byron_dev --build-arg USERNAME=bmarohn --build-arg GIT_NAME="Byron Marohn" --build-arg GIT_EMAIL=pleasedontemailme@seriously.com --build-arg UID=1000 --build-arg GID=1000 --build-arg DOCKER_GID=999
 ```
+
+Once this is built, suggest setting up a directory for persistent data for the docker image. For example:
+```
+mkdir ~/docker_home/dev ~/docker_home/.cargo ~/docker_home/
+touch ~/docker_home/.histfile ~/docker_home/.viminfo
+```
+
+Then an alias to run and mount everything (in ~/.bashrc or similar):
+```
+alias dev='docker run --rm -it -v ~/docker_home/dev:/home/bmarohn/dev -v ~/docker_home/.histfile:/home/bmarohn/.histfile -v ~/docker_home/.viminfo:/home/bmarohn/.viminfo -v ~/docker_home/.cargo:/home/bmarohn/.cargo -v /var/run/docker.sock:/var/run/docker.sock byron_dev'
+```
+
+And run the alias to switch into the docker dev environment:
+```
+dev
+```
+
 
 ### Read, and make changes!
 

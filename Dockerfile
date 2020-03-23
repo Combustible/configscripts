@@ -60,5 +60,5 @@ RUN  rm -rf $USERHOME/.vim/bundle/dein.vim && \
 	rm -f 'tags' && \
 	vim '+helptags .' '+qall'
 
-WORKDIR $USERHOME/home
+WORKDIR $USERHOME/dev
 CMD ["/usr/bin/zsh"]
