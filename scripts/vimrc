@@ -39,7 +39,7 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	call dein#add('tpope/vim-fugitive')
 
 	" Autocompletion for many file types
-	call dein#add('Valloric/YouCompleteMe', { 'build': './install.py --clang-completer' })
+	call dein#add('Valloric/YouCompleteMe', { 'build': './install.py --clang-completer --java-completer' })
 
 	" Local .vimrc files for projects
 	call dein#add('MarcWeber/vim-addon-local-vimrc')
@@ -69,9 +69,6 @@ if dein#load_state('~/.vim/bundle/dein.vim/state')
 	" NeoBundle 'akhaku/vim-java-unused-imports'
 	" Java Import Manager
 	" NeoBundle 'vim-scripts/JavaImp.vim--Lee'
-
-	" Eclim (eclipse) integration
-	call dein#add('dansomething/vim-eclim')
 
 	" Required:
 	call dein#end()
@@ -340,9 +337,6 @@ let g:vimwiki_list = [wiki_1]
 
 let g:pad#dir = '~/vimwiki'
 let g:vimwiki_conceallevel = 0
-
-" Java autocomplete with eclim
-let g:EclimCompletionMethod = 'omnifunc'
 
 " Adjust highlighting to better utilize color_coded
 exe 'hi Function ctermfg=white'

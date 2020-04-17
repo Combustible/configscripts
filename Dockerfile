@@ -5,7 +5,7 @@ RUN : "${DOCKER_GID:?'DOCKER_GID' argument needs to be set and non-empty.}"
 
 RUN groupadd --non-unique -g $DOCKER_GID docker && \
 	apt-get update && \
-	apt-get install -y build-essential git zsh openssh-client less man tmux tree ncdu pv python3-dev cmake ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog && \
+	apt-get install -y build-essential git zsh openssh-client less man tmux tree ncdu pv python3-dev cmake ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog openjdk-8-jdk && \
 	rm -rf /var/lib/apt/lists/*
 
 ARG USERNAME
