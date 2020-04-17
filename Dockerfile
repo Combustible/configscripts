@@ -1,22 +1,23 @@
 FROM debian:stable
 
-# Check for mandatory build arguments
+ARG DOCKER_GID
+RUN : "${DOCKER_GID:?'DOCKER_GID' argument needs to be set and non-empty.}"
+
+RUN groupadd --non-unique -g $DOCKER_GID docker && \
+	apt-get update && \
+	apt-get install -y build-essential git zsh openssh-client less man tmux tree ncdu pv python3-dev cmake ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog && \
+	rm -rf /var/lib/apt/lists/*
+
 ARG USERNAME
 ARG GIT_NAME
 ARG GIT_EMAIL
 ARG UID
 ARG GID
-ARG DOCKER_GID
 RUN : "${USERNAME:?'USERNAME' argument needs to be set and non-empty.}"
 RUN : "${GIT_NAME:?'GIT_NAME' argument needs to be set and non-empty.}"
 RUN : "${GIT_EMAIL:?'GIT_EMAIL' argument needs to be set and non-empty.}"
 RUN : "${UID:?'UID' argument needs to be set and non-empty.}"
 RUN : "${GID:?'GID' argument needs to be set and non-empty.}"
-RUN : "${DOCKER_GID:?'DOCKER_GID' argument needs to be set and non-empty.}"
-
-RUN groupadd --non-unique -g $DOCKER_GID docker && \
-	apt-get update && \
-	apt-get install -y build-essential git zsh openssh-client less man tmux tree ncdu pv python3-dev cmake ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog
 
 ENV USERHOME /home/$USERNAME
 
