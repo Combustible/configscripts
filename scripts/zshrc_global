@@ -1,7 +1,7 @@
 
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
+if [[ -d "/etc/oh-my-zsh" ]]; then
 	# Path to your oh-my-zsh installation.
-	export ZSH="$HOME/.oh-my-zsh"
+	export ZSH="/etc/oh-my-zsh"
 
 	# Set name of the theme to load. Optionally, if you set this to "random"
 	# it'll load a random theme each time that oh-my-zsh is loaded.
@@ -57,7 +57,9 @@ bindkey "\033[4~" end-of-line
 
 ################################## User configuration #################################
 
-source $HOME/.cargo/env
+if [[ -e $HOME/.cargo/env ]]; then
+	source $HOME/.cargo/env
+fi
 
 export EDITOR='vim'
 
@@ -96,10 +98,6 @@ alias astylejava='astyle --style=java --indent=tab=4 --convert-tabs --min-condit
 unset SSH_ASKPASS
 
 export PATH="$HOME/bin:$PATH"
-
-if [[ -e "$HOME/.localrc" ]]; then
-	source "$HOME/.localrc"
-fi
 
 # No more awful control-s freeze
 stty ixany

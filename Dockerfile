@@ -53,18 +53,19 @@ RUN curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o rustup.sh && 
 
 USER root
 
-COPY ./scripts/zshenv /etc/zsh/zshenv
+COPY ./scripts/zshenv ./scripts/zshrc_global /etc/zsh/
 COPY ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global /etc/
-COPY ./scripts/zshrc $USERHOME/.zshrc
 COPY ./scripts/vim $USERHOME/.vim
 
 RUN mkdir $USERHOME/dev && \
-	chown -R $USERNAME:$USERNAME $USERHOME
+	chown -R $USERNAME:$USERNAME $USERHOME && \
+	echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc
+
+RUN git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
 
 USER $USERNAME
 
-RUN git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
-	rm -rf $USERHOME/.vim/bundle/dein.vim && \
+RUN rm -rf $USERHOME/.vim/bundle/dein.vim && \
 	git clone 'https://github.com/Shougo/dein.vim' $USERHOME/.vim/bundle/dein.vim && \
 	vim -N -u /etc/vimrc -c "try | call dein#update() | finally | qall! | endtry" -V1 -es && \
 	cd $USERHOME/.vim/doc/ && \
