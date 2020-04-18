@@ -17,13 +17,9 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 ARG USERNAME
-ARG GIT_NAME
-ARG GIT_EMAIL
 ARG UID
 ARG GID
 RUN : "${USERNAME:?'USERNAME' argument needs to be set and non-empty.}"
-RUN : "${GIT_NAME:?'GIT_NAME' argument needs to be set and non-empty.}"
-RUN : "${GIT_EMAIL:?'GIT_EMAIL' argument needs to be set and non-empty.}"
 RUN : "${UID:?'UID' argument needs to be set and non-empty.}"
 RUN : "${GID:?'GID' argument needs to be set and non-empty.}"
 
@@ -58,20 +54,16 @@ RUN curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o rustup.sh && 
 USER root
 
 COPY ./scripts/zshenv /etc/zsh/zshenv
-COPY ./scripts/vimrc /etc/
+COPY ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global /etc/
 COPY ./scripts/zshrc $USERHOME/.zshrc
 COPY ./scripts/vim $USERHOME/.vim
-COPY ./scripts/gitconfig $USERHOME/.gitconfig
-COPY ./scripts/gitignore_global $USERHOME/.gitignore_global
 
 RUN mkdir $USERHOME/dev && \
 	chown -R $USERNAME:$USERNAME $USERHOME
 
 USER $USERNAME
 
-RUN git config --global user.name "$GIT_NAME" && \
-	git config --global user.email "$GIT_EMAIL" && \
-	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
+RUN git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
 	rm -rf $USERHOME/.vim/bundle/dein.vim && \
 	git clone 'https://github.com/Shougo/dein.vim' $USERHOME/.vim/bundle/dein.vim && \
 	vim -N -u /etc/vimrc -c "try | call dein#update() | finally | qall! | endtry" -V1 -es && \

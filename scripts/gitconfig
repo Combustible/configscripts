@@ -15,4 +15,4 @@
 	lg = !"git lg1"
 
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /etc/gitignore_global

@@ -35,8 +35,6 @@ Building requires collecting the following variables:
 
 - `-t byron_dev` - The local "tag" to give this image, which you can then use to run it
 - `USERNAME` - The local user that should be created in the container
-- `GIT_NAME` - Your name to put in ~/.gitconfig so commits will show up with the right author
-- `GIT_EMAIL` - Your email address to put in ~/.gitconfig
 - `UID` - What user ID the container user should have - this is important to match the host system you are running on so created files will have the right ownership
 - `GID` - Group ID for the container user, see `UID`
 - `DOCKER_GID` - The group ID of docker in the host system (in case you want to manipulate the host's docker from within the container)
@@ -44,7 +42,7 @@ Building requires collecting the following variables:
 
 Example command:
 ```
-docker build . -t byron_dev --build-arg USERNAME=bmarohn --build-arg GIT_NAME="Byron Marohn" --build-arg GIT_EMAIL=pleasedontemailme@seriously.com --build-arg UID=1000 --build-arg GID=1000 --build-arg DOCKER_GID=999
+docker build . -t byron_dev --build-arg USERNAME=bmarohn --build-arg UID=1000 --build-arg GID=1000 --build-arg DOCKER_GID=999
 ```
 
 Once this is built, suggest setting up a directory for persistent data for the docker image. For example:
