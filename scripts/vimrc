@@ -281,11 +281,6 @@ nmap <leader>hl :nohls<CR>
 " JavaImportOrganize with ,ji
 nmap <leader>ji :JavaImportOrganize<CR>
 
-" Source the vimrc file after saving it
-if has("autocmd")
-	autocmd bufwritepost .vimrc source $MYVIMRC
-endif
-
 " Set YouCompleteMe semantic completer to trigger on 'Control + k'
 let g:ycm_key_invoke_completion = '<c-k>'
 let g:ycm_always_populate_location_list = 1

@@ -57,7 +57,8 @@ RUN curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o rustup.sh && 
 
 USER root
 
-COPY ./scripts/vimrc $USERHOME/.vimrc
+COPY ./scripts/zshenv /etc/zsh/zshenv
+COPY ./scripts/vimrc /etc/
 COPY ./scripts/zshrc $USERHOME/.zshrc
 COPY ./scripts/vim $USERHOME/.vim
 COPY ./scripts/gitconfig $USERHOME/.gitconfig
@@ -73,7 +74,7 @@ RUN git config --global user.name "$GIT_NAME" && \
 	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
 	rm -rf $USERHOME/.vim/bundle/dein.vim && \
 	git clone 'https://github.com/Shougo/dein.vim' $USERHOME/.vim/bundle/dein.vim && \
-	vim -N -u $USERHOME/.vimrc -c "try | call dein#update() | finally | qall! | endtry" -V1 -es && \
+	vim -N -u /etc/vimrc -c "try | call dein#update() | finally | qall! | endtry" -V1 -es && \
 	cd $USERHOME/.vim/doc/ && \
 	rm -f 'tags' && \
 	vim '+helptags .' '+qall'
