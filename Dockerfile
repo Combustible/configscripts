@@ -13,7 +13,7 @@ RUN wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | a
 	add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 
 RUN apt-get update && \
-	apt-get install -y build-essential git zsh openssh-client less man tmux tree ncdu pv python3-dev cmake ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog adoptopenjdk-8-hotspot && \
+	apt-get install -y build-essential git zsh openssh-client less man tmux tree ncdu pv python3-dev cmake ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog adoptopenjdk-8-hotspot maven && \
 	rm -rf /var/lib/apt/lists/*
 
 ARG USERNAME
