@@ -60,12 +60,5 @@ RUN echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
 
 USER $USERNAME
 
-# Rust
-#RUN curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o rustup.sh && \
-#	chmod +x rustup.sh && \
-#	./rustup.sh -y && \
-#	. $USERHOME/.cargo/env && \
-#	rustup component add rls rust-analysis rust-src
-
 WORKDIR $USERHOME
 CMD ["/usr/bin/zsh"]
