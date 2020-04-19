@@ -1,14 +1,18 @@
-# Byron's Linux Config Scripts
+# Byron's Vim-centric Docker Integrated Development Environment
 
-This is a package of the development environment / configuration scripts I personally use for Linux software development.
+This is an easy-to-use Docker image of the Linux development environment I
+personally use.
 
-It may be useful to people who are interested in learning about Vim and trying out some of the plugins I'm using without having to do too much work.
+It is easy to set up, requires installing nothing on the host system besides
+Docker, and has features comparable to the best of Visual Studio, Eclipse, etc.
+It's also free and open source.
 
 ## Contents
 
-This repository builds a docker image of the Vim environment I use for C/C++ development work. The image has just a single running process - sshd. You can SSH in, launch vim, and write some code.
-
-The idea here is that any system with a working docker environment can build the image, mount source code into it, and be up and running without much work.
+This repository builds a docker image of the Vim environment I use for
+C/C++/Rust/Java development work. This image drops you directly to a ZSH
+command line where you can launch Vim (and other tools) and get right to work.
+It only runs when you are using it - there is no background process.
 
 Some things in here that I like:
 - Vim
@@ -29,39 +33,27 @@ For more information, see the scripts!
 - [.vimrc](scripts/vimrc)
 - [.zshrc](scripts/zshrc)
 
-## Building
+## Getting started
 
-Building requires collecting the following variables:
+Run `./build.sh` to build the image. This will automatically grab your current
+user ID, group ID, and the docker group ID, so that when you mount files into
+the docker image the permissions will work out as expected.
 
-- `-t byron_dev` - The local "tag" to give this image, which you can then use to run it
-- `USERNAME` - The local user that should be created in the container
-- `UID` - What user ID the container user should have - this is important to match the host system you are running on so created files will have the right ownership
-- `GID` - Group ID for the container user, see `UID`
-- `DOCKER_GID` - The group ID of docker in the host system (in case you want to manipulate the host's docker from within the container)
-- `SSH_KEY` - An entry to add to `~/.ssh/authorized_keys` so you can log in password-free (no support for password login)
+Once the build is complete, it will suggest adding a quick alias to launch into
+your login script (`~/.bashrc` or similar). The idea is to create a separate
+directory to be the home directory for the development image, and then mount it
+in as the docker user's home. The docker image won't be able to get to the rest
+of your computer - just what folders you choose to mount. You can of course
+mount your actual home directory there if you want.
 
-Example command:
-```
-docker build . -t byron_dev --build-arg USERNAME=bmarohn --build-arg UID=1000 --build-arg GID=1000 --build-arg DOCKER_GID=999
-```
-
-Once this is built, suggest setting up a directory for persistent data for the docker image. For example:
-```
-mkdir ~/docker_home/dev ~/docker_home/.cargo ~/docker_home/
-touch ~/docker_home/.histfile ~/docker_home/.viminfo
-```
-
-Then an alias to run and mount everything (in ~/.bashrc or similar):
-```
-alias dev='docker run --rm -it -v ~/docker_home/dev:/home/bmarohn/dev -v ~/docker_home/.histfile:/home/bmarohn/.histfile -v ~/docker_home/.viminfo:/home/bmarohn/.viminfo -v ~/docker_home/.cargo:/home/bmarohn/.cargo -v /var/run/docker.sock:/var/run/docker.sock byron_dev'
-```
-
-And run the alias to switch into the docker dev environment:
-```
-dev
-```
-
+At that point, you can customize the environment for yourself by adding to
+.vimrc and .zshrc. You might be surprised to find these empty - my base files
+are installed to /etc/vimrc and /etc/zshrc which form the base development
+platform so you don't have to configure the vast majority of it yourself.
 
 ### Read, and make changes!
 
-There is a lot of stuff here that is at best self-documenting. I'd suggest reading over the $HOME/.vimrc script to see what plugins are included and exactly what I have changed. Also might be worth looking at the changes to $HOME/.gitconfig to make sure things look reasonable.
+There is a lot of stuff here that is at best self-documenting. I'd suggest
+reading over the $HOME/.vimrc script to see what plugins are included and
+exactly what I have changed. Also might be worth looking at the changes to
+$HOME/.gitconfig to make sure things look reasonable.
