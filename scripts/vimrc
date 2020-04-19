@@ -5,16 +5,18 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath+=~/.vim/bundle/dein.vim
+" Fix up the runtime path to use the system first, then local
+let rtp=&runtimepath
+set runtimepath=/etc/vim,/etc/vim/bundle/dein.vim
+let &runtimepath.=','.rtp
 
 " Required:
-if dein#load_state('~/.vim/bundle/dein.vim/state')
-	call dein#begin('~/.vim/bundle/dein.vim/state')
+if dein#load_state('/etc/vim/bundle/dein.vim/state')
+	call dein#begin('/etc/vim/bundle/dein.vim/state')
 
 	" Let dein manage dein
 	" Required:
-	call dein#add('~/.vim/bundle/dein.vim')
+	call dein#add('/etc/vim/bundle/dein.vim')
 
 	" 5 minute install timeout for bundles
 	let g:dein#install_process_timeout = 1500

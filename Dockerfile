@@ -42,35 +42,30 @@ RUN git clone 'https://github.com/vim/vim.git' vim-src && \
 	cd .. && \
 	rm -rf vim-src
 
-USER $USERNAME
-
-# Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o rustup.sh && \
-	chmod +x rustup.sh && \
-	./rustup.sh -y && \
-	. $USERHOME/.cargo/env && \
-	rustup component add rls rust-analysis rust-src
-
 USER root
 
 COPY ./scripts/zshenv ./scripts/zshrc_global /etc/zsh/
-COPY ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global /etc/
-COPY ./scripts/vim $USERHOME/.vim
+COPY ./scripts/vim ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global /etc/
 
-RUN mkdir $USERHOME/dev && \
-	chown -R $USERNAME:$USERNAME $USERHOME && \
-	echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc
-
-RUN git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh
+RUN echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
+	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh && \
+	mkdir -p /etc/vim/bundle && \
+	git clone 'https://github.com/Shougo/dein.vim' /etc/vim/bundle/dein.vim && \
+	vim -N -u /etc/vimrc -c "try | call dein#update() | finally | qall! | endtry" -V1 -es && \
+	mkdir -p /etc/vim/doc/ && \
+	cd /etc/vim/doc/ && \
+	rm -f 'tags' && \
+	vim '+helptags .' '+qall' && \
+	chown $UID:$GID -R /etc/vim
 
 USER $USERNAME
 
-RUN rm -rf $USERHOME/.vim/bundle/dein.vim && \
-	git clone 'https://github.com/Shougo/dein.vim' $USERHOME/.vim/bundle/dein.vim && \
-	vim -N -u /etc/vimrc -c "try | call dein#update() | finally | qall! | endtry" -V1 -es && \
-	cd $USERHOME/.vim/doc/ && \
-	rm -f 'tags' && \
-	vim '+helptags .' '+qall'
+# Rust
+#RUN curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o rustup.sh && \
+#	chmod +x rustup.sh && \
+#	./rustup.sh -y && \
+#	. $USERHOME/.cargo/env && \
+#	rustup component add rls rust-analysis rust-src
 
-WORKDIR $USERHOME/dev
+WORKDIR $USERHOME
 CMD ["/usr/bin/zsh"]
