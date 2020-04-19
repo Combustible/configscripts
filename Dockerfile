@@ -36,8 +36,7 @@ RUN echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
 	mkdir -p /etc/vim/doc/ && \
 	cd /etc/vim/doc/ && \
 	rm -f 'tags' && \
-	vim '+helptags .' '+qall' && \
-	chown $UID:$GID -R /etc/vim
+	vim -N -u /etc/vimrc '+helptags .' '+qall'
 
 ARG USERNAME
 ARG UID
@@ -49,7 +48,8 @@ RUN : "${GID:?'GID' argument needs to be set and non-empty.}"
 RUN groupadd --non-unique -g $GID $USERNAME && \
 	# NOTE! -l flag prevents creation of gigabytes of sparse log file for some reason
 	useradd -lmNs /usr/bin/zsh -u $UID -g $GID $USERNAME && \
-	usermod -a -G docker $USERNAME
+	usermod -a -G docker $USERNAME && \
+	chown $UID:$GID -R /etc/vim
 
 USER $USERNAME
 
