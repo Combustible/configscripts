@@ -347,3 +347,5 @@ exe 'hi Member ctermfg=gray'
 exe 'hi Variable ctermfg=gray'
 exe 'hi Namespace ctermfg=gray'
 exe 'hi EnumConstant ctermfg=blue'
+
+source ~/.vimrc
