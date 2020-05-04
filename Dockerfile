@@ -26,9 +26,11 @@ RUN git clone 'https://github.com/vim/vim.git' vim-src && \
 	rm -rf vim-src
 
 COPY ./scripts/zshenv ./scripts/zshrc_global /etc/zsh/
-COPY ./scripts/vim ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global /etc/
+COPY ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global /etc/
+COPY ./scripts/vim /etc/vim
 
 RUN echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
+	touch /root/.vimrc && \
 	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh && \
 	mkdir -p /etc/vim/bundle && \
 	git clone 'https://github.com/Shougo/dein.vim' /etc/vim/bundle/dein.vim && \
