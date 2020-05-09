@@ -29,7 +29,12 @@ COPY ./scripts/zshenv ./scripts/zshrc_global /etc/zsh/
 COPY ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global /etc/
 COPY ./scripts/vim /etc/vim
 
-RUN echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
+WORKDIR /usr/local
+
+RUN wget -qO - https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz | tar xz && \
+	echo 'export PATH="$PATH:/usr/local/go/bin"' | tee -a /etc/bash.bashrc /etc/zsh/zshrc && \
+	export PATH="$PATH:/usr/local/go/bin" && \
+	echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
 	touch /root/.vimrc && \
 	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh && \
 	mkdir -p /etc/vim/bundle && \
