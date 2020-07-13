@@ -11,7 +11,7 @@ RUN groupadd --non-unique -g $DOCKER_GID docker && \
 	wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
 	add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ && \
 	apt-get update && \
-	apt-get install -y build-essential git zsh openssh-client less man tmux tree ncdu pv python3-dev cmake ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog adoptopenjdk-8-hotspot maven && \
+	apt-get install -y build-essential git zsh openssh-client less man tmux tree unzip zip ncdu pv python3-dev cmake ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog adoptopenjdk-8-hotspot maven && \
 	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp
