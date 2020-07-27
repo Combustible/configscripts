@@ -39,6 +39,7 @@ if dein#load_state('/etc/vim/bundle/dein.vim/state')
 
 	" Git tools inside vim
 	call dein#add('tpope/vim-fugitive')
+	call dein#add('airblade/vim-gitgutter')
 
 	" Autocompletion for many file types
 	call dein#add('Valloric/YouCompleteMe', { 'build': './install.py --clang-completer --java-completer --go-completer' })
@@ -265,8 +266,30 @@ nmap <leader>cc :call Loadcctree()<cr>
 " Edit this vimrc file with ,vi
 nmap <leader>vi :tabedit $MYVIMRC<CR>
 
-" YouCompleteMe QuickFix
+" YouCompleteMe shortcuts
+nmap <leader>ji :YcmCompleter OrganizeImports<CR>
 nmap <leader>fi :YcmCompleter FixIt<CR>
+
+" GitGutter sign column minimalist customization
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+highlight! link SignColumn LineNr
+" Update stuff(?) a lot more often for improved responsiveness
+" This improves the sign column responsiveness, not sure what else it changes
+set updatetime=250
+
+" Hunk-add and hunk-revert for chunk staging
+nmap <Leader>ga <Plug>(GitGutterStageHunk)
+nmap <Leader>gu <Plug>(GitGutterUndoHunk)
+" Jump between hunks
+nmap <Leader>gn <Plug>(GitGutterNextHunk)
+nmap <Leader>gp <Plug>(GitGutterPrevHunk)
 
 " Quickfix mappings:
 nmap <leader>co :copen<CR>
@@ -279,9 +302,6 @@ nmap <leader>nn :bnext<CR>
 
 " Disable highlighting:
 nmap <leader>hl :nohls<CR>
-
-" JavaImportOrganize with ,ji
-nmap <leader>ji :JavaImportOrganize<CR>
 
 " Set YouCompleteMe semantic completer to trigger on 'Control + k'
 let g:ycm_key_invoke_completion = '<c-k>'
