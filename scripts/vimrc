@@ -42,7 +42,7 @@ if dein#load_state('/etc/vim/bundle/dein.vim/state')
 	call dein#add('airblade/vim-gitgutter')
 
 	" Autocompletion for many file types
-	call dein#add('Valloric/YouCompleteMe', { 'build': './install.py --clang-completer --java-completer --go-completer' })
+	call dein#add('Valloric/YouCompleteMe', { 'build': './install.py --clang-completer --java-completer --go-completer --rust-completer' })
 
 	" Local .vimrc files for projects
 	call dein#add('MarcWeber/vim-addon-local-vimrc')
@@ -307,17 +307,6 @@ nmap <leader>hl :nohls<CR>
 let g:ycm_key_invoke_completion = '<c-k>'
 let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
-
-" Hook into the rust language server protocol with YouCompleteMe
-let g:ycm_language_server =
-  \ [
-  \   {
-  \     'name': 'rust',
-  \     'cmdline': [ 'rls' ],
-  \     'filetypes': [ 'rust' ],
-  \     'project_root_files': [ 'Cargo.toml' ]
-  \   }
-  \ ]
 
 " Taglist plugin opens on the right, rather than the left
 let Tlist_Use_Right_Window = 1
