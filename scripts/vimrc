@@ -7,16 +7,26 @@ endif
 
 " Fix up the runtime path to use the system first, then local
 let rtp=&runtimepath
-set runtimepath=/etc/vim,/etc/vim/bundle/dein.vim
+set runtimepath=/etc/vim,/etc/vim/bundle/dein.vim,~/.vim/bundle/dein.vim
 let &runtimepath.=','.rtp
 
+" Figure out the correct dein directory, which depends on whether this is run
+" directly or via docker
+if isdirectory(resolve(expand("~/.vim/bundle/dein.vim")))
+  let deindir="~/.vim/bundle/dein.vim"
+  let deinstate="~/.vim/bundle/dein.vim/state"
+else
+  let deindir="/etc/vim/bundle/dein.vim"
+  let deinstate="/etc/vim/bundle/dein.vim/state"
+endif
+
 " Required:
-if dein#load_state('/etc/vim/bundle/dein.vim/state')
-	call dein#begin('/etc/vim/bundle/dein.vim/state')
+if dein#load_state(deinstate)
+	call dein#begin(deinstate)
 
 	" Let dein manage dein
 	" Required:
-	call dein#add('/etc/vim/bundle/dein.vim')
+	call dein#add(deindir)
 
 	" 5 minute install timeout for bundles
 	let g:dein#install_process_timeout = 1500
