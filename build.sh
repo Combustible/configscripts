@@ -59,7 +59,7 @@ Then run:
 
 	docker save vim_dev_environment:latest | gzip > vim_dev_environment.tgz
 	# Transfer the image back to this computer
-	gunzip vim_dev_environment.tgz | docker load
+	gunzip --stdout vim_dev_environment.tgz | docker load
 EOF
 fi
 
