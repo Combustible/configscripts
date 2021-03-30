@@ -22,7 +22,39 @@ if [[ "$input_docker_gid " == " " ]]; then
 	exit -1
 fi
 
-cmd=(docker build . -t vim_dev_environment --build-arg USERNAME=$input_user --build-arg UID=$input_uid --build-arg GID=$input_gid --build-arg DOCKER_GID=$input_docker_gid)
+PROXY_ARGS=""
+if [[ ! -z "$FTP_PROXY" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg FTP_PROXY=$FTP_PROXY"
+fi
+if [[ ! -z "$HTTPS_PROXY" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg HTTPS_PROXY=$HTTPS_PROXY"
+fi
+if [[ ! -z "$HTTP_PROXY" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg HTTP_PROXY=$HTTP_PROXY"
+fi
+if [[ ! -z "$NO_PROXY" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg NO_PROXY=$NO_PROXY"
+fi
+if [[ ! -z "$SOCKS_PROXY" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg SOCKS_PROXY=$SOCKS_PROXY"
+fi
+if [[ ! -z "$ftp_proxy" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg ftp_proxy=$ftp_proxy"
+fi
+if [[ ! -z "$https_proxy" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg https_proxy=$https_proxy"
+fi
+if [[ ! -z "$http_proxy" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg http_proxy=$http_proxy"
+fi
+if [[ ! -z "$no_proxy" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg no_proxy=$no_proxy"
+fi
+if [[ ! -z "$socks_proxy" ]]; then
+	PROXY_ARGS="$PROXY_ARGS --build-arg socks_proxy=$socks_proxy"
+fi
+
+cmd=(docker build . -t vim_dev_environment --build-arg USERNAME=$input_user --build-arg UID=$input_uid --build-arg GID=$input_gid --build-arg DOCKER_GID=$input_docker_gid $PROXY_ARGS)
 "${cmd[@]}"
 if [[ $? -eq 0 ]]; then
 	cat <<EOF

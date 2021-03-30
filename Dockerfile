@@ -3,9 +3,42 @@ FROM debian:stable
 ARG DOCKER_GID
 RUN : "${DOCKER_GID:?'DOCKER_GID' argument needs to be set and non-empty.}"
 
+# Set proxy if it was set on the host
+ARG FTP_PROXY=""
+ARG HTTPS_PROXY=""
+ARG HTTP_PROXY=""
+ARG NO_PROXY=""
+ARG SOCKS_PROXY=""
+ARG ftp_proxy=""
+ARG http_proxy=""
+ARG https_proxy=""
+ARG no_proxy=""
+ARG socks_proxy=""
+
+ENV FTP_PROXY=$FTP_PROXY
+ENV HTTPS_PROXY=$HTTPS_PROXY
+ENV HTTP_PROXY=$HTTP_PROXY
+ENV NO_PROXY=$NO_PROXY
+ENV SOCKS_PROXY=$SOCKS_PROXY
+ENV ftp_proxy=$ftp_proxy
+ENV http_proxy=$http_proxy
+ENV https_proxy=$https_proxy
+ENV no_proxy=$no_proxy
+ENV socks_proxy=$socks_proxy
+
 ARG APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 
-RUN groupadd --non-unique -g $DOCKER_GID docker && \
+RUN if [ -z "$FTP_PROXY" ]; then unset FTP_PROXY; fi; \
+	if [ -z "$HTTPS_PROXY" ]; then unset HTTPS_PROXY; fi; \
+	if [ -z "$HTTP_PROXY" ]; then unset HTTP_PROXY; fi; \
+	if [ -z "$NO_PROXY" ]; then unset NO_PROXY; fi; \
+	if [ -z "$SOCKS_PROXY" ]; then unset SOCKS_PROXY; fi; \
+	if [ -z "$ftp_proxy" ]; then unset ftp_proxy; fi; \
+	if [ -z "$http_proxy" ]; then unset http_proxy; fi; \
+	if [ -z "$https_proxy" ]; then unset https_proxy; fi; \
+	if [ -z "$no_proxy" ]; then unset no_proxy; fi; \
+	if [ -z "$socks_proxy" ]; then unset socks_proxy; fi; \
+	groupadd --non-unique -g $DOCKER_GID docker && \
 	apt-get update && \
 	apt-get install -y apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common && \
 	wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | apt-key add - && \
