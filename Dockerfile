@@ -42,7 +42,7 @@ RUN if [ -z "$FTP_PROXY" ]; then unset FTP_PROXY; fi; \
 	apt-get update && \
 	apt-get install -y apt-transport-https ca-certificates wget dirmngr gnupg software-properties-common && \
 	apt-get update && \
-	apt-get install -y build-essential git zsh openssh-client less man tmux tree unzip zip ncdu pv python3-dev cmake universal-ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog openjdk-17-jdk maven locales gnuplot && \
+	apt-get install -y build-essential git zsh openssh-client less man tmux tree unzip zip ncdu pv python3-dev python3-pip cmake universal-ctags g++ curl wget gdb cscope astyle libncurses5-dev libatk1.0-dev docker.io liblua5.3-dev lua5.3 python3-watchdog openjdk-17-jdk maven locales gnuplot && \
 	rm -rf /var/lib/apt/lists/* && \
 	sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 	locale-gen
@@ -68,10 +68,7 @@ COPY ./scripts/vim /etc/vim
 
 WORKDIR /usr/local
 
-RUN wget -qO - https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz | tar xz && \
-	echo 'export PATH="$PATH:/usr/local/go/bin"' | tee -a /etc/bash.bashrc /etc/zsh/zshrc && \
-	export PATH="$PATH:/usr/local/go/bin" && \
-	echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
+RUN echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
 	touch /root/.vimrc && \
 	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git /etc/oh-my-zsh && \
 	mkdir -p /etc/vim/bundle && \
@@ -80,7 +77,8 @@ RUN wget -qO - https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz | tar xz && 
 	mkdir -p /etc/vim/doc/ && \
 	cd /etc/vim/doc/ && \
 	rm -f 'tags' && \
-	vim -N -u /etc/vimrc '+helptags .' '+qall'
+	vim -N -u /etc/vimrc '+helptags .' '+qall' && \
+	echo 'PYTHONPATH=/etc/vim/bundle/dein.vim/state/repos/github.com/Valloric/YouCompleteMe/third_party/ycmd' >> /etc/environment
 
 ARG USERNAME
 ARG UID
