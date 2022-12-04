@@ -77,8 +77,7 @@ RUN echo 'source /etc/zsh/zshrc_global' >> /etc/zsh/zshrc && \
 	mkdir -p /etc/vim/doc/ && \
 	cd /etc/vim/doc/ && \
 	rm -f 'tags' && \
-	vim -N -u /etc/vimrc '+helptags .' '+qall' && \
-	echo 'PYTHONPATH=/etc/vim/bundle/dein.vim/state/repos/github.com/Valloric/YouCompleteMe/third_party/ycmd' >> /etc/environment
+	vim -N -u /etc/vimrc '+helptags .' '+qall'
 
 ARG USERNAME
 ARG UID
@@ -94,6 +93,10 @@ RUN groupadd --non-unique -g $GID $USERNAME && \
 	chown $UID:$GID -R /etc/vim
 
 USER $USERNAME
+
+# Can't build this via dein arg anymore since it refuses to build as root
+RUN cd /etc/vim/bundle/dein.vim/state/repos/github.com/Valloric/YouCompleteMe && \
+	./install.py --clang-completer --java-completer --rust-completer
 
 WORKDIR /home/$USERNAME
 CMD ["/usr/bin/zsh"]
