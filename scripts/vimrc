@@ -266,6 +266,9 @@ let g:NERDTreeDirArrows=0
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 
+" Ctrl-P ignore list
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/]\.(git|hg|svn)$', 'file': '\v\.(class)$' }
+
 " Open nerdtree with ,ne
 let mapleader = ","
 nmap <leader>ne :NERDTree<cr>
