@@ -63,7 +63,7 @@ RUN git clone 'https://github.com/vim/vim.git' vim-src && \
 	rm -rf vim-src
 
 COPY ./scripts/zshenv ./scripts/zshrc_global /etc/zsh/
-COPY ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global /etc/
+COPY ./scripts/vimrc ./scripts/gitconfig ./scripts/gitignore_global ./scripts/global_ycm_extra_conf.py /etc/
 COPY ./scripts/vim /etc/vim
 
 WORKDIR /usr/local
