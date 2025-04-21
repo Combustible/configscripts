@@ -1,3 +1,8 @@
+" Don't source this file again if it was already loaded. This happens when
+" this file is located at ~/.vimrc
+if exists('g:vimrc_sourced')
+  finish
+endif
 
 "--------------------------------------------------------------------------------
 "dein (plugin manager) Scripts-----------------------------
@@ -376,4 +381,5 @@ exe 'hi EnumConstant ctermfg=blue'
 
 let g:ale_linters={ 'python': ['pylint'], }
 
+let g:vimrc_sourced = 1
 source ~/.vimrc

@@ -1,29 +1,33 @@
+load_oh_my_zsh() {
+    if [[ -d "$1" ]]; then
+        # Path to your oh-my-zsh installation.
+        export ZSH="$1"
 
-if [[ -d "/etc/oh-my-zsh" ]]; then
-	# Path to your oh-my-zsh installation.
-	export ZSH="/etc/oh-my-zsh"
+        # Set name of the theme to load. Optionally, if you set this to "random"
+        # it'll load a random theme each time that oh-my-zsh is loaded.
+        # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+        ZSH_THEME="evan"
 
-	# Set name of the theme to load. Optionally, if you set this to "random"
-	# it'll load a random theme each time that oh-my-zsh is loaded.
-	# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-	ZSH_THEME="evan"
+        # Uncomment the following line to display red dots whilst waiting for completion.
+        COMPLETION_WAITING_DOTS="true"
 
-	# Uncomment the following line to display red dots whilst waiting for completion.
-	COMPLETION_WAITING_DOTS="true"
+        # Uncomment the following line if you want to disable marking untracked files
+        # under VCS as dirty. This makes repository status check for large repositories
+        # much, much faster.
+        DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-	# Uncomment the following line if you want to disable marking untracked files
-	# under VCS as dirty. This makes repository status check for large repositories
-	# much, much faster.
-	DISABLE_UNTRACKED_FILES_DIRTY="true"
+        # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+        # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+        # Example format: plugins=(rails git textmate ruby lighthouse)
+        # Add wisely, as too many plugins slow down shell startup.
+        plugins=(git safe-paste)
 
-	# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-	# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-	# Example format: plugins=(rails git textmate ruby lighthouse)
-	# Add wisely, as too many plugins slow down shell startup.
-	plugins=(git safe-paste)
+        source $ZSH/oh-my-zsh.sh
+    fi
+}
 
-	source $ZSH/oh-my-zsh.sh
-fi
+load_oh_my_zsh "/home/bmarohn/.oh-my-zsh"
+load_oh_my_zsh "/etc/oh-my-zsh"
 
 ################################## Special Key configuration #################################
 
@@ -58,7 +62,7 @@ bindkey "\033[4~" end-of-line
 ################################## User configuration #################################
 
 if [[ -e $HOME/.cargo/env ]]; then
-	source $HOME/.cargo/env
+    source $HOME/.cargo/env
 fi
 
 export EDITOR='vim'
@@ -108,50 +112,51 @@ alias vi=vim
 
 # Strips trailing whitespace errors from the files specified as arguments
 fixwhitespace() {
-	for file in "$@"; do
-		sed -i -e's|[ \t]*\([\r\n]*\)$|\1|g' "$file"
-	done
+    for file in "$@"; do
+        sed -i -e's|[ \t]*\([\r\n]*\)$|\1|g' "$file"
+    done
 }
 
 # Builds a single cscope database in the current directory to index the files/directories provided as arguments.
 # Probably the most common invocation is 'buildcscope .' to index the current directory and subdirectories.
 buildcscope() (
-	rm -f cscope.in.out cscope.po.out cscope.files cscope.out
-	find "$@" -name "*.c" -o -name "*.h" -o -name "*.cpp" | while read line; do
-		filename="$(readlink -f "$line")"
-		if $(which unifdef > /dev/null); then
-			mv -f "$filename" "${filename}_CSCOPETEMP" >&2
-			unifdef -b "${filename}_CSCOPETEMP" -U__cplusplus > "$filename"
-		fi
-		echo $(readlink -f $line)
-	done | sort | uniq > cscope.files && cscope -b -q -k
+    rm -f cscope.in.out cscope.po.out cscope.files cscope.out
+    find "$@" -name "*.c" -o -name "*.h" -o -name "*.cpp" | while read line; do
+        filename="$(readlink -f "$line")"
+        if $(which unifdef > /dev/null); then
+            mv -f "$filename" "${filename}_CSCOPETEMP" >&2
+            unifdef -b "${filename}_CSCOPETEMP" -U__cplusplus > "$filename"
+        fi
+        echo $(readlink -f $line)
+    done | sort | uniq > cscope.files && cscope -b -q -k
 
-	if $(which unifdef > /dev/null); then
-		find "$@" -name "*_CSCOPETEMP" | while read line; do
-			filename="$(readlink -f "$line")"
-			origfilename="$(echo "$filename" | sed 's|_CSCOPETEMP$||g' )";
-			mv -f "$filename" "$origfilename"
-		done
-	fi
+    if $(which unifdef > /dev/null); then
+        find "$@" -name "*_CSCOPETEMP" | while read line; do
+            filename="$(readlink -f "$line")"
+            origfilename="$(echo "$filename" | sed 's|_CSCOPETEMP$||g' )";
+            mv -f "$filename" "$origfilename"
+        done
+    fi
 )
 
 get_rust() {
-	curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o /tmp/rustup.sh
-	chmod +x /tmp/rustup.sh
-	/tmp/rustup.sh -y
-	source $HOME/.cargo/env
-	rustup component add rls rust-analysis rust-src
+    curl --proto '=https' --tlsv1.2 -sSf "https://sh.rustup.rs" -o /tmp/rustup.sh
+    chmod +x /tmp/rustup.sh
+    /tmp/rustup.sh -y
+    source $HOME/.cargo/env
+    rustup component add rls rust-analysis rust-src
 }
 
 # First run text
 if [[ ! -e $HOME/.cache/devinitmarker ]] ; then
-	mkdir -p $HOME/.cache
-	touch $HOME/.cache/devinitmarker
-	echo "################################################################################"
-	echo "# Welcome to Byron's vim-ified docker development environment"
-	echo "# If you'd like to install rust to your home directory, you can run 'get_rust'"
-	echo "# This message only appears on first run, or if your user home directory is not"
-	echo "# mounted / otherwise persistent"
-	echo "################################################################################"
+    mkdir -p $HOME/.cache
+    touch $HOME/.cache/devinitmarker
+    echo "################################################################################"
+    echo "# Welcome to Byron's vim-ified docker development environment"
+    echo "# If you'd like to install rust to your home directory, you can run 'get_rust'"
+    echo "# This message only appears on first run, or if your user home directory is not"
+    echo "# mounted / otherwise persistent"
+    echo "################################################################################"
 fi
 
+export PATH=$HOME/.local/bin:$PATH
